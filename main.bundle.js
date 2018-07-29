@@ -1351,7 +1351,7 @@ exports.SidebarModule = SidebarModule;
 /***/ "./src/app/skill/skill.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div id=\"piechart\" style=\"width: 430px; height: 400px;\" #piechartElement> -->\n\n<div id=\"piechart\" #piechartDiv style=\"width:100%; height:430px !important\">\n</div>"
+module.exports = "<!-- <div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n\n            <div class=\"col-md-12\">\n                <div class=\"card1\">\n\n                    <div id=\"piechart\" #piechartDiv style=\"height: 400px !important;\">\n                    </div>\n\n                </div>\n            </div>\n\n        </div>\n    </div>\n</div> -->\n\n\n\n<div id=\"piechart\" #piechartDiv style=\"width:450px; height:430px !important\" (window:resize)=\"onResize($event)\">\n</div>"
 
 /***/ }),
 
@@ -1409,6 +1409,9 @@ var SkillComponent = (function () {
             // var chart = new google.visualization.PieChart(this.piechartDiv.naviteElement);
             chart.draw(data, options);
         } // End of function
+    };
+    SkillComponent.prototype.onResize = function (event) {
+        console.log("Resize : " + event.target.innerWidth);
     };
     return SkillComponent;
 }());
