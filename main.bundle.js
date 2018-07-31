@@ -1921,14 +1921,14 @@ exports.TablesComponent = TablesComponent;
 /***/ "./src/app/typography/typography.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "ul li {\n    float: left;\n    width: 200px;\n    height: auto;\n}"
+module.exports = "ul li {\n    float: left;\n    width: 200px;\n    height: auto;\n}\n\n.errorMessage_class {\n    width: 40%;\n    font-size: 16px\n}"
 
 /***/ }),
 
 /***/ "./src/app/typography/typography.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n\n\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n\n                <button (click)=\"expandFaceDetectionSection()\" class=\"btn btn-primary btn-fill my-2\">\n                    Try Face Detection\n                </button>\n\n            </div>\n        </div>\n\n\n        <br/>\n\n\n        <div class=\"row\" *ngIf=\"isFaceDetectionDivOpen\">\n\n            <div class=\"col-md-6\">\n\n                <button (click)=\"processImage()\" class=\"btn btn-fill btn-primary\">Take picture</button>\n                <br/>\n\n                <div class=\"card\" id=\"myCanvasDiv\">\n                    <div class=\"content\">\n                        <!-- <img *ngIf=\"!faceApiResponse\" [src]=\"imageString\" id=\"photo\" alt=\"imageString\" width=\"100%\" height=\"400px\"> -->\n                        <canvas id=\"myCanvas\" width=\"100%\" height=\"400px\"></canvas>\n                    </div>\n                </div>\n\n\n                <div id=\"loader\" *ngIf=\"isRequestProcessing\">\n                    <img src=\"assets/img/loader-preview.svg\" alt=\"loading\">\n                </div>\n\n\n            </div>\n\n            <div class=\"col-md-6\">\n                <!-- <div class=\"text-center\"> -->\n                <div *ngIf=\"faceApiResponse\">\n\n\n                    <div class=\"card1\" style=\"margin-top:40px\">\n\n                        <!-- <div class=\"content\" style=\"padding:20px\"> -->\n\n                        <ul class=\"list-group\">\n                            <li class=\"list-group-item\">\n                                Gender : {{faceApiResponse[0]?.faceAttributes?.gender}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Smiling : {{faceApiResponse[0]?.faceAttributes?.smile | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Anger : {{faceApiResponse[0]?.faceAttributes?.emotion?.anger | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Age : {{faceApiResponse[0]?.faceAttributes?.age}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Happiness : {{faceApiResponse[0]?.faceAttributes?.emotion?.happiness | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Sadness : {{faceApiResponse[0]?.faceAttributes?.emotion?.sadness | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Glasses : {{faceApiResponse[0]?.faceAttributes?.glasses}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Neutral : {{faceApiResponse[0]?.faceAttributes?.emotion?.neutral | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Fear : {{faceApiResponse[0]?.faceAttributes?.emotion?.fear | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Moustache : {{faceApiResponse[0]?.faceAttributes?.facialHair?.moustache | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Surprise : {{faceApiResponse[0]?.faceAttributes?.emotion?.surprise | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Disgust : {{faceApiResponse[0]?.faceAttributes?.emotion?.disgust | percent}}\n                            </li>\n                        </ul>\n\n\n                        <!-- </div> -->\n\n                    </div>\n                </div>\n                <!-- </div> -->\n            </div>\n        </div>\n\n        <hr style=\"border-color: lightgrey\" />\n\n        <div class=\"row\" style=\"padding-top:40px;\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n\n            <!-- <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"header\">\n                        <h4 class=\"title\">Light Bootstrap Table Heading</h4>\n                        <p class=\"category\">Created using Roboto Font Family</p>\n                    </div>\n                    <div class=\"content\">\n\n                        <div class=\"typo-line\">\n                            <h1><p class=\"category\">Header 1</p>Light Bootstrap Table Heading </h1>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Header 2</p>Light Bootstrap Table Heading</h2>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h3><p class=\"category\">Header 3</p>Light Bootstrap Table Heading</h3>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h4><p class=\"category\">Header 4</p>Light Bootstrap Table Heading</h4>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h5><p class=\"category\">Header 5</p>Light Bootstrap Table Heading</h5>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h6><p class=\"category\">Header 6</p>Light Bootstrap Table Heading</h6>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p><span class=\"category\">Paragraph</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Quote</p>\n                            <blockquote>\n                                <p>\n                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.\n                                </p>\n                                <small>\n                                    Steve Jobs, CEO Apple\n                                </small>\n                            </blockquote>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Muted Text</p>\n                            <p class=\"text-muted\">\n                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n\n                            <p class=\"category\">Coloured Text\n                            </p>\n                            <p class=\"text-primary\">\n                                Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-info\">\n                                Text Info - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-success\">\n                                Text Success - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-warning\">\n                                Text Warning - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-danger\">\n                                Text Danger - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Small Tag</p>Header with small subtitle <br><small>\".small\" is a tag for the headers</small> </h2>\n                        </div>\n                    </div>\n                </div>\n            </div> -->\n\n        </div>\n\n\n\n        <div class=\"row\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"faceRecognitionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Face Recognition using Python\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <!-- <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe> -->\n                </div>\n            </div>\n\n        </div>\n\n    </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n\n\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <button (click)=\"expandFaceDetectionSection()\" class=\"btn btn-primary btn-fill my-2\">\n                    Try Face Detection\n                </button>\n            </div>\n        </div>\n\n\n\n        <div class=\"row\" style=\"padding-top:20px\">\n            <div class=\"col-md-6\">\n                <video id=\"video2\" style=\"display:none\" width=\"90%\" height=\"100%\" autoplay></video>\n            </div>\n\n            <div *ngIf=\"errorMessage\" class=\"alert alert-danger text-center errorMessage_class\">{{errorMessage}}</div>\n\n\n            <div class=\"col-md-6\" id=\"myCanvasDiv\" style=\"display:none;\">\n\n                <!-- <button (click)=\"processImage()\" class=\"btn btn-fill btn-primary\">Take picture</button> -->\n\n                <button id=\"capture\" class=\"btn btn-fill btn-primary pull-right\">Take picture</button>\n                <canvas id=\"myCanvas\"></canvas>\n\n                <ul class=\"list-group\" style=\"margin-top:20px\" *ngIf=\"faceApiResponse\">\n                    <li class=\"list-group-item\">\n                        Gender : {{faceApiResponse[0]?.faceAttributes?.gender}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Smiling : {{faceApiResponse[0]?.faceAttributes?.smile | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Anger : {{faceApiResponse[0]?.faceAttributes?.emotion?.anger | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Age : {{faceApiResponse[0]?.faceAttributes?.age}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Happiness : {{faceApiResponse[0]?.faceAttributes?.emotion?.happiness | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Sadness : {{faceApiResponse[0]?.faceAttributes?.emotion?.sadness | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Glasses : {{faceApiResponse[0]?.faceAttributes?.glasses}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Neutral : {{faceApiResponse[0]?.faceAttributes?.emotion?.neutral | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Fear : {{faceApiResponse[0]?.faceAttributes?.emotion?.fear | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Moustache : {{faceApiResponse[0]?.faceAttributes?.facialHair?.moustache | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Surprise : {{faceApiResponse[0]?.faceAttributes?.emotion?.surprise | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Disgust : {{faceApiResponse[0]?.faceAttributes?.emotion?.disgust | percent}}\n                    </li>\n                </ul>\n\n\n                <div id=\"loader\" *ngIf=\"isRequestProcessing\" style=\"margin-left:35%\">\n                    <img src=\"assets/img/loader-preview.svg\" alt=\"loading\">\n                </div>\n\n\n                <!-- <div class=\"row\">\n                    <div class=\"col-md-12\">\n                        <canvas id=\"myCanvas\"></canvas>\n                    </div>\n                </div> -->\n\n\n                <!-- \n                <div class=\"card\" id=\"myCanvasDiv\">\n                    <div class=\"content\">\n\n                        <canvas id=\"myCanvas2\" width=\"100%\" height=\"400px\"></canvas>\n                    </div>\n                </div> -->\n\n                <!-- <video id=\"video2\" #video2 width=\"400\" height=\"450\" controls autoplay></video> -->\n                <!-- <img *ngIf=\"!faceApiResponse\" [src]=\"imageString\" id=\"photo\" alt=\"imageString\" width=\"100%\" height=\"400px\"> -->\n\n\n\n\n            </div>\n\n            <!-- <div class=\"col-md-6\">\n                    <div *ngIf=\"faceApiResponse\">\n\n\n                        <div class=\"card1\" style=\"margin-top:40px\">\n\n\n                            <canvas id=\"myCanvas\" width=\"100%\" height=\"400px\"></canvas>\n\n\n                            <ul class=\"list-group\" style=\"margin-top:40px\">\n                                <li class=\"list-group-item\">\n                                    Gender : {{faceApiResponse[0]?.faceAttributes?.gender}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Smiling : {{faceApiResponse[0]?.faceAttributes?.smile | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Anger : {{faceApiResponse[0]?.faceAttributes?.emotion?.anger | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Age : {{faceApiResponse[0]?.faceAttributes?.age}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Happiness : {{faceApiResponse[0]?.faceAttributes?.emotion?.happiness | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Sadness : {{faceApiResponse[0]?.faceAttributes?.emotion?.sadness | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Glasses : {{faceApiResponse[0]?.faceAttributes?.glasses}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Neutral : {{faceApiResponse[0]?.faceAttributes?.emotion?.neutral | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Fear : {{faceApiResponse[0]?.faceAttributes?.emotion?.fear | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Moustache : {{faceApiResponse[0]?.faceAttributes?.facialHair?.moustache | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Surprise : {{faceApiResponse[0]?.faceAttributes?.emotion?.surprise | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Disgust : {{faceApiResponse[0]?.faceAttributes?.emotion?.disgust | percent}}\n                                </li>\n                            </ul>\n\n\n\n                        </div>\n                    </div>\n                </div>\n                 -->\n            <!-- </div> -->\n\n        </div>\n\n\n        <br/>\n\n\n\n        <hr style=\"border-color: lightgrey\" />\n\n        <div class=\"row\" style=\"padding-top:40px;\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n\n            <!-- <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"header\">\n                        <h4 class=\"title\">Light Bootstrap Table Heading</h4>\n                        <p class=\"category\">Created using Roboto Font Family</p>\n                    </div>\n                    <div class=\"content\">\n\n                        <div class=\"typo-line\">\n                            <h1><p class=\"category\">Header 1</p>Light Bootstrap Table Heading </h1>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Header 2</p>Light Bootstrap Table Heading</h2>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h3><p class=\"category\">Header 3</p>Light Bootstrap Table Heading</h3>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h4><p class=\"category\">Header 4</p>Light Bootstrap Table Heading</h4>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h5><p class=\"category\">Header 5</p>Light Bootstrap Table Heading</h5>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h6><p class=\"category\">Header 6</p>Light Bootstrap Table Heading</h6>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p><span class=\"category\">Paragraph</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Quote</p>\n                            <blockquote>\n                                <p>\n                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.\n                                </p>\n                                <small>\n                                    Steve Jobs, CEO Apple\n                                </small>\n                            </blockquote>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Muted Text</p>\n                            <p class=\"text-muted\">\n                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n\n                            <p class=\"category\">Coloured Text\n                            </p>\n                            <p class=\"text-primary\">\n                                Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-info\">\n                                Text Info - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-success\">\n                                Text Success - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-warning\">\n                                Text Warning - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-danger\">\n                                Text Danger - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Small Tag</p>Header with small subtitle <br><small>\".small\" is a tag for the headers</small> </h2>\n                        </div>\n                    </div>\n                </div>\n            </div> -->\n\n        </div>\n\n\n\n        <div class=\"row\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"faceRecognitionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Face Recognition using Python\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <!-- <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe> -->\n                </div>\n            </div>\n\n        </div>\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1960,6 +1960,7 @@ var TypographyComponent = (function () {
         this.faceApiResponse = null;
         this.isFaceDetectionDivOpen = false;
         this.isRequestProcessing = false;
+        this.errorMessage = "";
         this.objDetectionURL1 = "https://www.youtube.com/embed/scEO0yKtmDQ";
         this.objDetectionURL2 = "https://www.youtube.com/embed/56qHb-tLvuc";
         this.faceRecognitionURL1 = "https://www.youtube.com/embed/TNDluRC6M5Q";
@@ -1967,68 +1968,85 @@ var TypographyComponent = (function () {
     TypographyComponent.prototype.ngOnInit = function () {
         this.subscriptionKey = environment_1.environment.subscriptionKey1;
     };
+    TypographyComponent.prototype.ngAfterViewInit = function () {
+    };
     TypographyComponent.prototype.expandFaceDetectionSection = function () {
         this.isFaceDetectionDivOpen = !this.isFaceDetectionDivOpen;
-        // var div = <HTMLDivElement>document.getElementById("myCanvasDiv");
-        // if (div) {
-        //   console.log("div width : " + div.clientWidth);
-        //   console.log("div height: " + div.clientHeight);
-        // }
-        // var canvasDiv = <HTMLCanvasElement>document.getElementById("myCanvas");
-        // if (canvasDiv) {
-        //   console.log("canvasDiv width : " + canvasDiv.clientWidth);
-        //   console.log("canvasDiv height: " + canvasDiv.clientHeight);
-        // }
+        if (this.isFaceDetectionDivOpen) {
+            document.getElementById('video2').style.display = 'block';
+            document.getElementById('myCanvasDiv').style.display = 'block';
+            this.initializeVideoCapture();
+        }
+        else {
+            document.getElementById('video2').style.display = 'none';
+            document.getElementById('myCanvasDiv').style.display = 'none';
+        }
     };
-    TypographyComponent.prototype.processImage = function () {
+    TypographyComponent.prototype.initializeVideoCapture = function () {
         var _this = this;
         var self = this;
-        if (!this.subscriptionKey) {
-            return;
+        var video = document.getElementById('video2');
+        // console.log("Video 111 : " + video);
+        if (video) {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                // Not adding `{ audio: true }` since we only want video now
+                navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+                    //video.src = window.URL.createObjectURL(stream);
+                    //video.play();
+                    video.srcObject = stream;
+                }).catch(function (e) {
+                    self.errorMessage = "No Camera found";
+                    document.getElementById('video2').style.display = 'none';
+                    document.getElementById('myCanvasDiv').style.display = 'none';
+                });
+                // Capture images from Video
+                var canvas_1 = document.getElementById('myCanvas');
+                var context_1 = canvas_1.getContext('2d');
+                context_1.canvas.width = video.clientWidth * 0.8;
+                context_1.canvas.height = video.clientHeight * 1.0;
+                var captureButton = document.getElementById('capture');
+                captureButton.addEventListener('click', function () {
+                    // Draw the video frame to the canvas.
+                    context_1.drawImage(video, 0, 0, canvas_1.width, canvas_1.height);
+                    var base64Image = canvas_1.toDataURL("image/jpeg");
+                    _this.processImage(base64Image);
+                });
+            }
+            else {
+                self.errorMessage = "No Camera found";
+                document.getElementById('video2').style.display = 'none';
+                document.getElementById('myCanvasDiv').style.display = 'none';
+            }
         }
-        this.isRequestProcessing = true;
-        this.cameraService.getPhoto().subscribe(function (base64Image) {
-            self.imageString = base64Image;
-            self.faceRecognitionService.scanImage(self.subscriptionKey, self.imageString //base64Image
-            ).subscribe(function (result) {
-                //console.log("result : " + JSON.stringify(result));
-                //console.log("typeof : " + typeof (result));
-                _this.isRequestProcessing = false;
-                if (result && (typeof (result) == "object")) {
-                    self.faceApiResponse = result;
-                    //======== Draw Rect on the image Start ===========
-                    var left = result[0].faceRectangle.left - 30;
-                    var top = result[0].faceRectangle.top - 30;
-                    var width = result[0].faceRectangle.width;
-                    var height = result[0].faceRectangle.height;
-                    var canvas = document.getElementById("myCanvas");
-                    var ctx = canvas.getContext("2d");
-                    if (canvas) {
-                        // console.log("canvasDiv width 11 : " + canvas.clientWidth);
-                        // console.log("canvasDiv height 11 : " + canvas.clientHeight);
-                    }
-                    var canvasParentDiv = document.getElementById("myCanvasDiv");
-                    if (canvasParentDiv) {
-                        // console.log("div width : " + div.clientWidth);
-                        // console.log("div height : " + div.clientHeight);
-                        ctx.canvas.width = canvasParentDiv.clientWidth - 20;
-                        ctx.canvas.height = canvasParentDiv.clientHeight;
-                        // console.log("canvasDiv width 22 : " + canvasDiv.clientWidth);
-                        // console.log("canvasDiv height 22 : " + canvasDiv.clientHeight);
-                    }
-                    var image = new Image();
-                    image.onload = function () {
-                        ctx.drawImage(image, 0, 0, image.width * 0.9, image.height * 0.9);
-                        ctx.beginPath();
-                        ctx.rect(left, top, width, height);
-                        ctx.lineWidth = 5;
-                        ctx.strokeStyle = 'green';
-                        ctx.stroke();
-                    };
-                    image.src = base64Image;
-                    //======== Draw Rect on the image End ===========
-                }
-            });
+        else {
+            console.log("Video is empty.");
+        }
+    };
+    TypographyComponent.prototype.processImage = function (base64Image) {
+        var self = this;
+        self.imageString = base64Image;
+        self.isRequestProcessing = true;
+        self.faceRecognitionService.scanImage(self.subscriptionKey, self.imageString //base64Image
+        ).subscribe(function (result) {
+            // console.log("result : " + JSON.stringify(result));
+            //console.log("typeof : " + typeof (result));
+            self.isRequestProcessing = false;
+            if (result && (typeof (result) == "object")) {
+                self.faceApiResponse = result;
+                //======== Draw Rect on the image Start ===========
+                var left = result[0].faceRectangle.left;
+                var top = result[0].faceRectangle.top - 10;
+                var width = result[0].faceRectangle.width;
+                var height = result[0].faceRectangle.height + 10;
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.rect(left, top, width, height);
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = 'green';
+                ctx.stroke();
+                //======== Draw Rect on the image End ===========
+            }
         });
     };
     return TypographyComponent;
