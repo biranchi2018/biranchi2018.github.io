@@ -115,6 +115,13 @@ var data_service_1 = __webpack_require__("./src/app/data.service.ts");
 var skill_component_1 = __webpack_require__("./src/app/skill/skill.component.ts");
 // import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 var safe_pipe_1 = __webpack_require__("./src/app/pipes/safe-pipe.ts");
+var http_2 = __webpack_require__("./node_modules/@angular/common/@angular/common/http.es5.js");
+var bool_to_yes_no_pipe_1 = __webpack_require__("./src/app/pipes/bool-to-yes-no/bool-to-yes-no.pipe.ts");
+var abstract_camera_service_1 = __webpack_require__("./src/app/services/abstract-camera.service.ts");
+var desktop_camera_service_1 = __webpack_require__("./src/app/services/desktop-camera.service.ts");
+var face_recognition_service_1 = __webpack_require__("./src/app/services/face-recognition.service.ts");
+var mobile_camera_service_1 = __webpack_require__("./src/app/services/mobile-camera.service.ts");
+var platform_information_provider_1 = __webpack_require__("./src/app/services/platform-information.provider.ts");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -133,7 +140,8 @@ AppModule = __decorate([
             notifications_component_1.NotificationsComponent,
             upgrade_component_1.UpgradeComponent,
             skill_component_1.SkillComponent,
-            safe_pipe_1.SafePipe
+            safe_pipe_1.SafePipe,
+            bool_to_yes_no_pipe_1.BoolToYesNoPipe,
         ],
         imports: [
             platform_browser_1.BrowserModule,
@@ -145,8 +153,21 @@ AppModule = __decorate([
             router_1.RouterModule,
             app_routing_1.AppRoutingModule,
             lbd_module_1.LbdModule,
+            http_2.HttpClientModule
         ],
-        providers: [data_service_1.DataService, safe_pipe_1.SafePipe],
+        providers: [
+            desktop_camera_service_1.DesktopCameraService,
+            mobile_camera_service_1.MobileCameraService,
+            face_recognition_service_1.FaceRecognitionService,
+            platform_information_provider_1.PlatformInformationProvider,
+            data_service_1.DataService,
+            safe_pipe_1.SafePipe,
+            {
+                provide: abstract_camera_service_1.AbstractCameraService,
+                useFactory: abstract_camera_service_1.cameraFactory,
+                deps: [platform_information_provider_1.PlatformInformationProvider]
+            }
+        ],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
@@ -1009,6 +1030,40 @@ exports.NotificationsComponent = NotificationsComponent;
 
 /***/ }),
 
+/***/ "./src/app/pipes/bool-to-yes-no/bool-to-yes-no.pipe.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+var BoolToYesNoPipe = (function () {
+    function BoolToYesNoPipe() {
+    }
+    BoolToYesNoPipe.prototype.transform = function (value, args) {
+        if (!!value) {
+            return 'Yes';
+        }
+        return 'No';
+    };
+    return BoolToYesNoPipe;
+}());
+BoolToYesNoPipe = __decorate([
+    core_1.Pipe({
+        name: 'boolToYesNo'
+    })
+], BoolToYesNoPipe);
+exports.BoolToYesNoPipe = BoolToYesNoPipe;
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/bool-to-yes-no.pipe.js.map
+
+/***/ }),
+
 /***/ "./src/app/pipes/safe-pipe.ts":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1042,6 +1097,361 @@ SafePipe = __decorate([
 exports.SafePipe = SafePipe;
 var _a;
 //# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/safe-pipe.js.map
+
+/***/ }),
+
+/***/ "./src/app/services/abstract-camera.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var desktop_camera_service_1 = __webpack_require__("./src/app/services/desktop-camera.service.ts");
+var mobile_camera_service_1 = __webpack_require__("./src/app/services/mobile-camera.service.ts");
+function cameraFactory(platformInformationProvider) {
+    if (platformInformationProvider.isMobileDevice) {
+        return new mobile_camera_service_1.MobileCameraService();
+    }
+    return new desktop_camera_service_1.DesktopCameraService();
+}
+exports.cameraFactory = cameraFactory;
+var AbstractCameraService = (function () {
+    function AbstractCameraService() {
+    }
+    return AbstractCameraService;
+}());
+exports.AbstractCameraService = AbstractCameraService;
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/abstract-camera.service.js.map
+
+/***/ }),
+
+/***/ "./src/app/services/desktop-camera.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+var Observable_1 = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
+var DesktopCameraService = (function () {
+    function DesktopCameraService() {
+    }
+    DesktopCameraService.prototype.getMediaDevices = function () {
+        var mediaDevices = (window.navigator.mozGetUserMedia || window.navigator.webkitGetUserMedia
+            ? {
+                getUserMedia: function (options) {
+                    return new Promise(function (resolve, reject) {
+                        (window.navigator.mozGetUserMedia ||
+                            window.navigator.webkitGetUserMedia).call(window.navigator, options, resolve, reject);
+                    });
+                }
+            }
+            : null) || window.navigator.mediaDevices;
+        return mediaDevices;
+    };
+    DesktopCameraService.prototype.getPhoto = function () {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this.getMediaDevices()
+                .getUserMedia({ video: true, audio: false })
+                .then(function (stream) {
+                var vendorURL = window.URL || window.webkitURL;
+                var doc = document;
+                var videoElement = doc.createElement('video');
+                videoElement.src = vendorURL.createObjectURL(stream);
+                videoElement.play();
+                var takePhotoInternal = function () {
+                    var canvasElement = doc.createElement('canvas');
+                    canvasElement.setAttribute('width', videoElement.videoWidth.toString());
+                    canvasElement.setAttribute('height', videoElement.videoHeight.toString());
+                    setTimeout(function () {
+                        var context = canvasElement.getContext('2d');
+                        context.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight);
+                        var url = canvasElement.toDataURL('image/png');
+                        videoElement.pause();
+                        if (stream.stop) {
+                            stream.stop();
+                        }
+                        if (stream.getAudioTracks) {
+                            stream.getAudioTracks().forEach(function (track) {
+                                track.stop();
+                            });
+                        }
+                        if (stream.getVideoTracks) {
+                            stream.getVideoTracks().forEach(function (track) {
+                                track.stop();
+                            });
+                        }
+                        observer.next(url);
+                        observer.complete();
+                    }, 500);
+                };
+                if (videoElement.readyState >= videoElement.HAVE_FUTURE_DATA) {
+                    takePhotoInternal();
+                }
+                else {
+                    videoElement.addEventListener('canplay', function () {
+                        takePhotoInternal();
+                    }, false);
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        });
+    };
+    return DesktopCameraService;
+}());
+DesktopCameraService = __decorate([
+    core_1.Injectable()
+], DesktopCameraService);
+exports.DesktopCameraService = DesktopCameraService;
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/desktop-camera.service.js.map
+
+/***/ }),
+
+/***/ "./src/app/services/face-recognition.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var http_1 = __webpack_require__("./node_modules/@angular/common/@angular/common/http.es5.js");
+var core_1 = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+var environment_1 = __webpack_require__("./src/environments/environment.ts");
+var FaceRecognitionService = (function () {
+    function FaceRecognitionService(httpClient) {
+        this.httpClient = httpClient;
+    }
+    FaceRecognitionService.prototype.scanImage = function (subscriptionKey, base64Image) {
+        var headers = this.getHeaders(subscriptionKey);
+        var params = this.getParams();
+        var blob = this.makeblob(base64Image);
+        return this.httpClient.post(environment_1.environment.endpoint, blob, {
+            params: params,
+            headers: headers
+        });
+        // return this.httpClient.post<FaceRecognitionResponse>(
+        //   environment.endpoint,
+        //   blob,
+        //   {
+        //     params,
+        //     headers
+        //   }
+        // ).map(result => <FaceRecognitionResponse>result);
+    };
+    // scanImage2(subscriptionKey: string, base64Image: string): Observable<FaceRecognitionResponse> {
+    //   const headers = this.getHeaders(subscriptionKey);
+    //   const params = this.getParams();
+    //   const blob = this.makeblob(base64Image);
+    //   return this.httpClient.post<FaceRecognitionResponse>(
+    //     environment.endpoint,
+    //     blob,
+    //     {
+    //       params,
+    //       headers
+    //     }
+    //   ).pipe();
+    // }
+    FaceRecognitionService.prototype.makeblob = function (dataURL) {
+        var BASE64_MARKER = ';base64,';
+        var parts = dataURL.split(BASE64_MARKER);
+        var contentType = parts[0].split(':')[1];
+        var raw = window.atob(parts[1]);
+        var rawLength = raw.length;
+        var uInt8Array = new Uint8Array(rawLength);
+        for (var i = 0; i < rawLength; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+        }
+        return new Blob([uInt8Array], { type: contentType });
+    };
+    FaceRecognitionService.prototype.getHeaders = function (subscriptionKey) {
+        var headers = new http_1.HttpHeaders();
+        headers = headers.set('Content-Type', 'application/octet-stream');
+        headers = headers.set('Ocp-Apim-Subscription-Key', subscriptionKey);
+        return headers;
+    };
+    FaceRecognitionService.prototype.getParams = function () {
+        var httpParams = new http_1.HttpParams()
+            .set('returnFaceId', 'true')
+            .set('returnFaceLandmarks', 'false')
+            .set('returnFaceAttributes', 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise')
+            .set('observe', 'response');
+        return httpParams;
+    };
+    return FaceRecognitionService;
+}());
+FaceRecognitionService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [typeof (_a = typeof http_1.HttpClient !== "undefined" && http_1.HttpClient) === "function" && _a || Object])
+], FaceRecognitionService);
+exports.FaceRecognitionService = FaceRecognitionService;
+var _a;
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/face-recognition.service.js.map
+
+/***/ }),
+
+/***/ "./src/app/services/mobile-camera.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Observable_1 = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
+var MobileCameraService = (function () {
+    function MobileCameraService() {
+    }
+    MobileCameraService.prototype.getPhoto = function () {
+        return Observable_1.Observable.create(function (observer) {
+            var removeDomListener = function () {
+                document.removeEventListener('deviceready', onCordovaDeviceReady);
+            };
+            var onCordovaDeviceReady = function () {
+                var camera = window.navigator.camera;
+                var options = {
+                    quality: 100,
+                    destinationType: camera.DestinationType.DATA_URL,
+                    sourceType: camera.PictureSourceType.CAMERA,
+                    encodingType: camera.EncodingType.PNG,
+                    pictureSourceType: camera.PictureSourceType.CAMERA,
+                    saveToPhotoAlbum: false,
+                    targetWidth: 640,
+                    targetHeight: 640,
+                    correctOrientation: true
+                };
+                camera.getPicture(function (imageData) {
+                    observer.next('data:image/png;base64,' + imageData);
+                    removeDomListener();
+                    observer.complete();
+                }, function (error) {
+                    observer.error(error);
+                    removeDomListener();
+                    observer.complete();
+                }, options);
+            };
+            document.addEventListener('deviceready', onCordovaDeviceReady);
+        });
+    };
+    return MobileCameraService;
+}());
+exports.MobileCameraService = MobileCameraService;
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/mobile-camera.service.js.map
+
+/***/ }),
+
+/***/ "./src/app/services/platform-information.provider.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+var PlatformInformationProvider = (function () {
+    function PlatformInformationProvider() {
+        this.guessPlatform();
+    }
+    Object.defineProperty(PlatformInformationProvider.prototype, "isMobileDevice", {
+        get: function () {
+            return this._iOS || this._isAndroid;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PlatformInformationProvider.prototype, "isMobileWeb", {
+        get: function () {
+            return window.innerWidth <= 768;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PlatformInformationProvider.prototype, "isWeb", {
+        get: function () {
+            return !this.isMobileDevice && !this.isElectron;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PlatformInformationProvider.prototype, "isIOS", {
+        get: function () {
+            return this._iOS;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PlatformInformationProvider.prototype, "isAndroid", {
+        get: function () {
+            return this._isAndroid;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PlatformInformationProvider.prototype, "isElectron", {
+        get: function () {
+            return this._isElectron;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PlatformInformationProvider.prototype, "userAgent", {
+        get: function () {
+            return this.getWindow().navigator.userAgent;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PlatformInformationProvider.prototype, "platformName", {
+        get: function () {
+            if (!this.getWindow().device) {
+                return '';
+            }
+            return this.getWindow().device.platform + " " + this.getWindow().device.model;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    PlatformInformationProvider.prototype.guessPlatform = function () {
+        this._iOS =
+            this.getWindow().cordova && this.getWindow().cordova.platformId === 'ios';
+        this._isAndroid =
+            this.getWindow().cordova &&
+                this.getWindow().cordova.platformId === 'android';
+        this._isElectron =
+            this.getWindow().navigator.userAgent.match(/Electron/) !== null;
+    };
+    PlatformInformationProvider.prototype.getWindow = function () {
+        return window;
+    };
+    return PlatformInformationProvider;
+}());
+PlatformInformationProvider = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], PlatformInformationProvider);
+exports.PlatformInformationProvider = PlatformInformationProvider;
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/platform-information.provider.js.map
 
 /***/ }),
 
@@ -1404,6 +1814,9 @@ var SkillComponent = (function () {
             ]);
             var options = {
                 'title': 'Technical Skills',
+                is3D: true
+                // 'width': 435,
+                // 'height': 400
             };
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
             // var chart = new google.visualization.PieChart(this.piechartDiv.naviteElement);
@@ -1508,14 +1921,14 @@ exports.TablesComponent = TablesComponent;
 /***/ "./src/app/typography/typography.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "ul li {\n    float: left;\n    width: 200px;\n    height: auto;\n}"
 
 /***/ }),
 
 /***/ "./src/app/typography/typography.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n\n            <!-- <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"header\">\n                        <h4 class=\"title\">Light Bootstrap Table Heading</h4>\n                        <p class=\"category\">Created using Roboto Font Family</p>\n                    </div>\n                    <div class=\"content\">\n\n                        <div class=\"typo-line\">\n                            <h1><p class=\"category\">Header 1</p>Light Bootstrap Table Heading </h1>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Header 2</p>Light Bootstrap Table Heading</h2>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h3><p class=\"category\">Header 3</p>Light Bootstrap Table Heading</h3>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h4><p class=\"category\">Header 4</p>Light Bootstrap Table Heading</h4>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h5><p class=\"category\">Header 5</p>Light Bootstrap Table Heading</h5>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h6><p class=\"category\">Header 6</p>Light Bootstrap Table Heading</h6>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p><span class=\"category\">Paragraph</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Quote</p>\n                            <blockquote>\n                                <p>\n                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.\n                                </p>\n                                <small>\n                                    Steve Jobs, CEO Apple\n                                </small>\n                            </blockquote>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Muted Text</p>\n                            <p class=\"text-muted\">\n                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n\n                            <p class=\"category\">Coloured Text\n                            </p>\n                            <p class=\"text-primary\">\n                                Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-info\">\n                                Text Info - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-success\">\n                                Text Success - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-warning\">\n                                Text Warning - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-danger\">\n                                Text Danger - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Small Tag</p>Header with small subtitle <br><small>\".small\" is a tag for the headers</small> </h2>\n                        </div>\n                    </div>\n                </div>\n            </div> -->\n\n        </div>\n\n\n\n        <div class=\"row\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"faceRecognitionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Face Recognition using Python Dlib\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <!-- <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe> -->\n                </div>\n            </div>\n\n        </div>\n\n    </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n\n\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n\n                <button (click)=\"expandFaceDetectionSection()\" class=\"btn btn-primary btn-fill my-2\">\n                    Try Face Detection\n                </button>\n\n            </div>\n        </div>\n\n\n        <br/>\n\n\n        <div class=\"row\" *ngIf=\"isFaceDetectionDivOpen\">\n\n            <div class=\"col-md-6\">\n\n                <button (click)=\"processImage()\" class=\"btn btn-fill btn-primary\">Take picture</button>\n                <br/>\n\n                <div class=\"card\" id=\"myCanvasDiv\">\n                    <div class=\"content\">\n                        <!-- <img *ngIf=\"!faceApiResponse\" [src]=\"imageString\" id=\"photo\" alt=\"imageString\" width=\"100%\" height=\"400px\"> -->\n                        <canvas id=\"myCanvas\" width=\"100%\" height=\"400px\"></canvas>\n                    </div>\n                </div>\n\n\n                <div id=\"loader\" *ngIf=\"isRequestProcessing\">\n                    <img src=\"assets/img/loader-preview.svg\" alt=\"loading\">\n                </div>\n\n\n            </div>\n\n            <div class=\"col-md-6\">\n                <!-- <div class=\"text-center\"> -->\n                <div *ngIf=\"faceApiResponse\">\n\n\n                    <div class=\"card1\" style=\"margin-top:40px\">\n\n                        <!-- <div class=\"content\" style=\"padding:20px\"> -->\n\n                        <ul class=\"list-group\">\n                            <li class=\"list-group-item\">\n                                Gender : {{faceApiResponse[0]?.faceAttributes?.gender}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Smiling : {{faceApiResponse[0]?.faceAttributes?.smile | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Anger : {{faceApiResponse[0]?.faceAttributes?.emotion?.anger | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Age : {{faceApiResponse[0]?.faceAttributes?.age}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Happiness : {{faceApiResponse[0]?.faceAttributes?.emotion?.happiness | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Sadness : {{faceApiResponse[0]?.faceAttributes?.emotion?.sadness | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Glasses : {{faceApiResponse[0]?.faceAttributes?.glasses}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Neutral : {{faceApiResponse[0]?.faceAttributes?.emotion?.neutral | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Fear : {{faceApiResponse[0]?.faceAttributes?.emotion?.fear | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Moustache : {{faceApiResponse[0]?.faceAttributes?.facialHair?.moustache | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Surprise : {{faceApiResponse[0]?.faceAttributes?.emotion?.surprise | percent}}\n                            </li>\n                            <li class=\"list-group-item\">\n                                Disgust : {{faceApiResponse[0]?.faceAttributes?.emotion?.disgust | percent}}\n                            </li>\n                        </ul>\n\n\n                        <!-- </div> -->\n\n                    </div>\n                </div>\n                <!-- </div> -->\n            </div>\n        </div>\n\n        <hr style=\"border-color: lightgrey\" />\n\n        <div class=\"row\" style=\"padding-top:40px;\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n\n            <!-- <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"header\">\n                        <h4 class=\"title\">Light Bootstrap Table Heading</h4>\n                        <p class=\"category\">Created using Roboto Font Family</p>\n                    </div>\n                    <div class=\"content\">\n\n                        <div class=\"typo-line\">\n                            <h1><p class=\"category\">Header 1</p>Light Bootstrap Table Heading </h1>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Header 2</p>Light Bootstrap Table Heading</h2>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h3><p class=\"category\">Header 3</p>Light Bootstrap Table Heading</h3>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h4><p class=\"category\">Header 4</p>Light Bootstrap Table Heading</h4>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h5><p class=\"category\">Header 5</p>Light Bootstrap Table Heading</h5>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h6><p class=\"category\">Header 6</p>Light Bootstrap Table Heading</h6>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p><span class=\"category\">Paragraph</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Quote</p>\n                            <blockquote>\n                                <p>\n                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.\n                                </p>\n                                <small>\n                                    Steve Jobs, CEO Apple\n                                </small>\n                            </blockquote>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Muted Text</p>\n                            <p class=\"text-muted\">\n                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n\n                            <p class=\"category\">Coloured Text\n                            </p>\n                            <p class=\"text-primary\">\n                                Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-info\">\n                                Text Info - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-success\">\n                                Text Success - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-warning\">\n                                Text Warning - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-danger\">\n                                Text Danger - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Small Tag</p>Header with small subtitle <br><small>\".small\" is a tag for the headers</small> </h2>\n                        </div>\n                    </div>\n                </div>\n            </div> -->\n\n        </div>\n\n\n\n        <div class=\"row\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"faceRecognitionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Face Recognition using Python\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <!-- <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe> -->\n                </div>\n            </div>\n\n        </div>\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1535,13 +1948,88 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+var face_recognition_service_1 = __webpack_require__("./src/app/services/face-recognition.service.ts");
+var abstract_camera_service_1 = __webpack_require__("./src/app/services/abstract-camera.service.ts");
+var environment_1 = __webpack_require__("./src/environments/environment.ts");
 var TypographyComponent = (function () {
-    function TypographyComponent() {
+    function TypographyComponent(faceRecognitionService, cameraService) {
+        this.faceRecognitionService = faceRecognitionService;
+        this.cameraService = cameraService;
+        this.imageString = '';
+        // faceApiResponse: Observable<FaceRecognitionResponse>;
+        this.faceApiResponse = null;
+        this.isFaceDetectionDivOpen = false;
+        this.isRequestProcessing = false;
         this.objDetectionURL1 = "https://www.youtube.com/embed/scEO0yKtmDQ";
         this.objDetectionURL2 = "https://www.youtube.com/embed/56qHb-tLvuc";
         this.faceRecognitionURL1 = "https://www.youtube.com/embed/TNDluRC6M5Q";
     }
     TypographyComponent.prototype.ngOnInit = function () {
+        this.subscriptionKey = environment_1.environment.subscriptionKey1;
+    };
+    TypographyComponent.prototype.expandFaceDetectionSection = function () {
+        this.isFaceDetectionDivOpen = !this.isFaceDetectionDivOpen;
+        // var div = <HTMLDivElement>document.getElementById("myCanvasDiv");
+        // if (div) {
+        //   console.log("div width : " + div.clientWidth);
+        //   console.log("div height: " + div.clientHeight);
+        // }
+        // var canvasDiv = <HTMLCanvasElement>document.getElementById("myCanvas");
+        // if (canvasDiv) {
+        //   console.log("canvasDiv width : " + canvasDiv.clientWidth);
+        //   console.log("canvasDiv height: " + canvasDiv.clientHeight);
+        // }
+    };
+    TypographyComponent.prototype.processImage = function () {
+        var _this = this;
+        var self = this;
+        if (!this.subscriptionKey) {
+            return;
+        }
+        this.isRequestProcessing = true;
+        this.cameraService.getPhoto().subscribe(function (base64Image) {
+            self.imageString = base64Image;
+            self.faceRecognitionService.scanImage(self.subscriptionKey, self.imageString //base64Image
+            ).subscribe(function (result) {
+                //console.log("result : " + JSON.stringify(result));
+                //console.log("typeof : " + typeof (result));
+                _this.isRequestProcessing = false;
+                if (result && (typeof (result) == "object")) {
+                    self.faceApiResponse = result;
+                    //======== Draw Rect on the image Start ===========
+                    var left = result[0].faceRectangle.left - 30;
+                    var top = result[0].faceRectangle.top - 30;
+                    var width = result[0].faceRectangle.width;
+                    var height = result[0].faceRectangle.height;
+                    var canvas = document.getElementById("myCanvas");
+                    var ctx = canvas.getContext("2d");
+                    if (canvas) {
+                        // console.log("canvasDiv width 11 : " + canvas.clientWidth);
+                        // console.log("canvasDiv height 11 : " + canvas.clientHeight);
+                    }
+                    var canvasParentDiv = document.getElementById("myCanvasDiv");
+                    if (canvasParentDiv) {
+                        // console.log("div width : " + div.clientWidth);
+                        // console.log("div height : " + div.clientHeight);
+                        ctx.canvas.width = canvasParentDiv.clientWidth - 20;
+                        ctx.canvas.height = canvasParentDiv.clientHeight;
+                        // console.log("canvasDiv width 22 : " + canvasDiv.clientWidth);
+                        // console.log("canvasDiv height 22 : " + canvasDiv.clientHeight);
+                    }
+                    var image = new Image();
+                    image.onload = function () {
+                        ctx.drawImage(image, 0, 0, image.width * 0.9, image.height * 0.9);
+                        ctx.beginPath();
+                        ctx.rect(left, top, width, height);
+                        ctx.lineWidth = 5;
+                        ctx.strokeStyle = 'green';
+                        ctx.stroke();
+                    };
+                    image.src = base64Image;
+                    //======== Draw Rect on the image End ===========
+                }
+            });
+        });
     };
     return TypographyComponent;
 }());
@@ -1551,9 +2039,10 @@ TypographyComponent = __decorate([
         template: __webpack_require__("./src/app/typography/typography.component.html"),
         styles: [__webpack_require__("./src/app/typography/typography.component.css")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof face_recognition_service_1.FaceRecognitionService !== "undefined" && face_recognition_service_1.FaceRecognitionService) === "function" && _a || Object, typeof (_b = typeof abstract_camera_service_1.AbstractCameraService !== "undefined" && abstract_camera_service_1.AbstractCameraService) === "function" && _b || Object])
 ], TypographyComponent);
 exports.TypographyComponent = TypographyComponent;
+var _a, _b;
 //# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/typography.component.js.map
 
 /***/ }),
@@ -1723,7 +2212,10 @@ exports.UserComponent = UserComponent;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = {
-    production: false
+    production: false,
+    subscriptionKey1: "e2c1ba693f1f47cd9a7c46ec71b8f8b7",
+    subscriptionKey2: "ac14fe93cb934a99afe151ff59ece054",
+    endpoint: 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect'
 };
 //# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/environment.js.map
 
