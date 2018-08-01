@@ -1966,7 +1966,8 @@ var TypographyComponent = (function () {
         this.faceRecognitionURL1 = "https://www.youtube.com/embed/TNDluRC6M5Q";
     }
     TypographyComponent.prototype.ngOnInit = function () {
-        this.subscriptionKey = environment_1.environment.subscriptionKey1;
+        var random = Math.round((Math.random() % 100) * 10);
+        this.subscriptionKey = (random % 2 == 0) ? environment_1.environment.subscriptionKey1 : environment_1.environment.subscriptionKey2;
     };
     TypographyComponent.prototype.ngAfterViewInit = function () {
     };
