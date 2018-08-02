@@ -1894,7 +1894,7 @@ exports.SidebarModule = SidebarModule;
 /***/ "./src/app/skill/skill.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n\n            <div class=\"col-md-12\">\n                <div class=\"card1\">\n\n                    <div id=\"piechart\" #piechartDiv style=\"height: 400px !important;\">\n                    </div>\n\n                </div>\n            </div>\n\n        </div>\n    </div>\n</div> -->\n\n\n\n<div id=\"piechart\" #piechartDiv style=\"width:450px; height:430px !important\" (window:resize)=\"onResize($event)\">\n</div>"
+module.exports = "<!-- <div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n\n            <div class=\"col-md-12\">\n                <div class=\"card1\">\n\n                    <div id=\"piechart\" #piechartDiv style=\"height: 400px !important;\">\n                    </div>\n\n                </div>\n            </div>\n\n        </div>\n    </div>\n</div> -->\n\n\n\n<div id=\"piechart\" #piechartDiv style=\"width:100%; min-height:430px !important\" (window:resize)=\"onResize($event)\">\n</div>"
 
 /***/ }),
 
@@ -1947,9 +1947,10 @@ var SkillComponent = (function () {
             ]);
             var options = {
                 'title': 'Technical Skills',
-                is3D: true
-                // 'width': 435,
-                // 'height': 400
+                is3D: true,
+                'chartArea': { 'width': '80%', 'height': '80%' },
+                'width': '100%',
+                'height': 430
             };
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
             // var chart = new google.visualization.PieChart(this.piechartDiv.naviteElement);
