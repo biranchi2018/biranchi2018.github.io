@@ -27,7 +27,7 @@ module.exports = ""
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n    <div class=\"sidebar\" data-color=\"red\" data-image=\"\">\n        <app-sidebar></app-sidebar>\n        <div class=\"sidebar-background\" style=\"background-image: url(assets/img/sidebar-5.jpg)\"></div>\n    </div>\n\n    <div class=\"main-panel\">\n        <navbar-cmp></navbar-cmp>\n        <router-outlet></router-outlet>\n        <div *ngIf=\"isMap('maps')\">\n            <footer-cmp></footer-cmp>\n        </div>\n    </div>\n</div>"
+module.exports = "<!-- <div class=\"wrapper\">\n    <div class=\"sidebar\" data-color=\"red\" data-image=\"\">\n        <app-sidebar></app-sidebar>\n        <div class=\"sidebar-background\" style=\"background-image: url(assets/img/sidebar-5.jpg)\"></div>\n    </div>\n\n    <div class=\"main-panel\">\n        <navbar-cmp></navbar-cmp>\n        <router-outlet></router-outlet>\n        <div *ngIf=\"isMap('maps')\">\n            <footer-cmp></footer-cmp>\n        </div>\n    </div>\n</div> -->\n\n\n\n<div class=\"wrapper\">\n    <div class=\"sidebar\" data-color=\"red\" data-image=\"\">\n        <app-sidebar></app-sidebar>\n        <div class=\"sidebar-background\" style=\"background-image: url(assets/img/sidebar-5.jpg)\"></div>\n    </div>\n\n    <div class=\"main-panel\">\n        <navbar-cmp></navbar-cmp>\n        <router-outlet></router-outlet>\n        <div *ngIf=\"isMap('maps')\">\n            <footer-cmp></footer-cmp>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -76,7 +76,7 @@ AppComponent = __decorate([
 ], AppComponent);
 exports.AppComponent = AppComponent;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/app.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/app.component.js.map
 
 /***/ }),
 
@@ -122,6 +122,7 @@ var desktop_camera_service_1 = __webpack_require__("./src/app/services/desktop-c
 var face_recognition_service_1 = __webpack_require__("./src/app/services/face-recognition.service.ts");
 var mobile_camera_service_1 = __webpack_require__("./src/app/services/mobile-camera.service.ts");
 var platform_information_provider_1 = __webpack_require__("./src/app/services/platform-information.provider.ts");
+var companies_component_1 = __webpack_require__("./src/app/companies/companies.component.ts");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -142,6 +143,7 @@ AppModule = __decorate([
             skill_component_1.SkillComponent,
             safe_pipe_1.SafePipe,
             bool_to_yes_no_pipe_1.BoolToYesNoPipe,
+            companies_component_1.CompaniesComponent,
         ],
         imports: [
             platform_browser_1.BrowserModule,
@@ -172,7 +174,7 @@ AppModule = __decorate([
     })
 ], AppModule);
 exports.AppModule = AppModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/app.module.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/app.module.js.map
 
 /***/ }),
 
@@ -233,7 +235,87 @@ AppRoutingModule = __decorate([
     })
 ], AppRoutingModule);
 exports.AppRoutingModule = AppRoutingModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/app.routing.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/app.routing.js.map
+
+/***/ }),
+
+/***/ "./src/app/companies/companies.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"timeline_chart_Div\" #timeline_chart_Div style=\"width:450px; height:430px !important\" (window:resize)=\"onResize($event)\">\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/companies/companies.component.scss":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/companies/companies.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+var CompaniesComponent = (function () {
+    function CompaniesComponent() {
+    }
+    CompaniesComponent.prototype.ngOnInit = function () {
+    };
+    CompaniesComponent.prototype.ngAfterViewInit = function () {
+        google.charts.load('current', { 'packages': ['timeline'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn({ type: 'string', id: 'Term' });
+            dataTable.addColumn({ type: 'string', id: 'Name' });
+            dataTable.addColumn({ type: 'date', id: 'Start' });
+            dataTable.addColumn({ type: 'date', id: 'End' });
+            dataTable.addRows([
+                ['1', 'George Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
+                ['2', 'John Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
+                ['3', 'Thomas Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]
+            ]);
+            var options = {
+                timeline: { showRowLabels: false }
+            };
+            var chart = new google.visualization.Timeline(document.getElementById('timeline_chart_Div'));
+            // var chart = new google.visualization.PieChart(this.piechartDiv.naviteElement);
+            chart.draw(dataTable, options);
+        } // End of function
+    };
+    CompaniesComponent.prototype.onResize = function (event) {
+        console.log("Timeline Resize : " + event.target.innerWidth);
+    };
+    return CompaniesComponent;
+}());
+__decorate([
+    core_1.ViewChild('timeline_chart_Div'),
+    __metadata("design:type", typeof (_a = typeof core_1.ElementRef !== "undefined" && core_1.ElementRef) === "function" && _a || Object)
+], CompaniesComponent.prototype, "timeline_chart_Div", void 0);
+CompaniesComponent = __decorate([
+    core_1.Component({
+        selector: 'app-companies',
+        template: __webpack_require__("./src/app/companies/companies.component.html"),
+        styles: [__webpack_require__("./src/app/companies/companies.component.scss")]
+    }),
+    __metadata("design:paramtypes", [])
+], CompaniesComponent);
+exports.CompaniesComponent = CompaniesComponent;
+var _a;
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/companies.component.js.map
 
 /***/ }),
 
@@ -270,7 +352,7 @@ DataService = __decorate([
     __metadata("design:paramtypes", [])
 ], DataService);
 exports.DataService = DataService;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/data.service.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/data.service.js.map
 
 /***/ }),
 
@@ -284,7 +366,7 @@ module.exports = ".image_links {\n    cursor: pointer;\n    height: 25px;\n    w
 /***/ "./src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-4\">\n                <div class=\"card card-user\">\n                    <div class=\"image\">\n                        <!-- <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\" /> -->\n                        <img src=\"assets/img/me/biranchi1.png\" alt=\"...\" />\n\n                    </div>\n                    <div class=\"content\">\n                        <div class=\"author\">\n                            <a href=\"#\">\n                                <img class=\"avatar border-gray\" src=\"assets/img/me/biranchi1.png\" alt=\"...\" />\n\n                                <h4 class=\"title\">Biranchi Nayak\n                                    <br />\n                                </h4>\n\n                            </a>\n                        </div>\n                        <p class=\"description text-center\">Kuala Lumpur, Malaysia\n                            <br />\n                            <small>\n                                <a href=\"mailto:biranchi125@gmail.com\">biranchi125@gmail.com</a>\n                            </small>\n                        </p>\n                        <p class=\"description text-center\">\n                            <br> I am a mobile apps cum full stack developer, electronics hobbyist &amp;\n                            <br> machine learning enthusiast.\n                        </p>\n                    </div>\n                    <hr>\n                    <div class=\"text-center\" style=\"padding-bottom:20px; padding-top:10px\">\n\n                        <!-- <button href=\"#\" class=\"btn btn-simple\">\n                            <i class=\"fa fa-facebook-square\"></i>\n                        </button>\n                        <button href=\"#\" class=\"btn btn-simple\">\n                            <i class=\"fa fa-twitter\"></i>\n                        </button>\n                        <button href=\"#\" class=\"btn btn-simple\">\n                            <i class=\"fa fa-google-plus-square\"></i>\n                        </button> -->\n\n\n                        <img src=\"assets/img/profile_icons/github.svg\" (click)=\"openLink('github')\" class=\"image_links\">\n                        <img src=\"assets/img/profile_icons/linkedin.svg\" (click)=\"openLink('linkedin')\" class=\"image_links\">\n                        <img src=\"assets/img/profile_icons/skype.svg\" (click)=\"openLink('skype')\" class=\"image_links\">\n                        <img src=\"assets/img/profile_icons/whatsapp.svg\" (click)=\"openLink('whatsapp')\" class=\"image_links\">\n\n\n                    </div>\n                </div>\n            </div>\n            <div class=\"col-md-4\">\n\n                <app-skill></app-skill>\n\n                <!-- <lbd-chart [title]=\"'Skillset'\" [subtitle]=\"'Technical Skills'\" [chartClass]=\"'ct-perfect-fourth'\" [chartType]=\"emailChartType\"\n                    [chartData]=\"emailChartData\" [legendItems]=\"emailChartLegendItems\" [withHr]=\"true\" [footerIconClass]=\"'fa fa-clock-o'\"\n                    [footerText]=\"'Last update: July 2018'\">\n                </lbd-chart> -->\n\n\n            </div>\n            <div class=\"col-md-4\">\n                <iframe allow=\"microphone;\" style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" src=\"https://console.dialogflow.com/api-client/demo/embedded/1731069b-64bb-41bd-becc-7390dda8d04b\">\n                </iframe>\n            </div>\n            <!-- <div class=\"col-md-8\">\n                <lbd-chart [title]=\"'Users Behavior'\" [subtitle]=\"'24 Hours performance'\" [chartType]=\"hoursChartType\" [chartData]=\"hoursChartData\"\n                    [chartOptions]=\"hoursChartOptions\" [chartResponsive]=\"hoursChartResponsive\" [legendItems]=\"hoursChartLegendItems\"\n                    [withHr]=\"true\" [footerIconClass]=\"'fa fa-history'\" [footerText]=\"'Updated 3 minutes ago'\">\n                </lbd-chart>\n            </div> -->\n\n        </div>\n\n\n\n        <div class=\"row\">\n            <div class=\"col-md-6\">\n                <lbd-chart [title]=\"'2014 Sales'\" [subtitle]=\"'All products including Taxes'\" [chartType]=\"activityChartType\" [chartData]=\"activityChartData\"\n                    [chartOptions]=\"activityChartOptions\" [chartResponsive]=\"activityChartResponsive\" [legendItems]=\"activityChartLegendItems\"\n                    [withHr]=\"true\" [footerIconClass]=\"'fa fa-check'\" [footerText]=\"'Data information certified'\">\n                </lbd-chart>\n            </div>\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <div class=\"header\">\n                        <h4 class=\"title\">Tasks</h4>\n                        <p class=\"category\">Backend development</p>\n                    </div>\n                    <div class=\"content\">\n                        <div class=\"table-full-width\">\n                            <table class=\"table\">\n                                <tbody>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox1\" type=\"checkbox\">\n                                                <label for=\"checkbox1\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Sign contract for \"What are conference organizers afraid of?\"</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox2\" type=\"checkbox\" checked>\n                                                <label for=\"checkbox2\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox3\" type=\"checkbox\" checked>\n                                                <label for=\"checkbox3\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging\n                                            rain swept through metro Detroit\n                                        </td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox4\" type=\"checkbox\">\n                                                <label for=\"checkbox4\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Create 4 Invisible User Experiences you Never Knew About</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox5\" type=\"checkbox\">\n                                                <label for=\"checkbox5\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Read \"Following makes Medium better\"</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox6\" type=\"checkbox\">\n                                                <label for=\"checkbox6\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Unfollow 5 enemies from twitter</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                        <div class=\"footer\">\n                            <hr>\n                            <div class=\"stats\">\n                                <i class=\"fa fa-history\"></i> Updated 3 minutes ago\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-4\">\n                <div class=\"card card-user\">\n                    <div class=\"image\">\n                        <!-- <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\" /> -->\n                        <img src=\"assets/img/me/biranchi1.png\" alt=\"...\" />\n\n                    </div>\n                    <div class=\"content\">\n                        <div class=\"author\">\n                            <a href=\"#\">\n                                <img class=\"avatar border-gray\" src=\"assets/img/me/biranchi1.png\" alt=\"...\" />\n\n                                <h4 class=\"title\">Biranchi Nayak\n                                    <br />\n                                </h4>\n\n                            </a>\n                        </div>\n                        <p class=\"description text-center\">Kuala Lumpur, Malaysia\n                            <br />\n                            <small>\n                                <a href=\"mailto:biranchi125@gmail.com\">biranchi125@gmail.com</a>\n                            </small>\n                        </p>\n                        <p class=\"description text-center\">\n                            <br> I am a mobile apps cum full stack developer, electronics hobbyist &amp;\n                            <br> machine learning enthusiast.\n                        </p>\n                    </div>\n                    <hr>\n                    <div class=\"text-center\" style=\"padding-bottom:20px; padding-top:10px\">\n\n                        <!-- <button href=\"#\" class=\"btn btn-simple\">\n                            <i class=\"fa fa-facebook-square\"></i>\n                        </button>\n                        <button href=\"#\" class=\"btn btn-simple\">\n                            <i class=\"fa fa-twitter\"></i>\n                        </button>\n                        <button href=\"#\" class=\"btn btn-simple\">\n                            <i class=\"fa fa-google-plus-square\"></i>\n                        </button> -->\n\n\n                        <img src=\"assets/img/profile_icons/github.svg\" (click)=\"openLink('github')\" class=\"image_links\">\n                        <img src=\"assets/img/profile_icons/linkedin.svg\" (click)=\"openLink('linkedin')\" class=\"image_links\">\n                        <img src=\"assets/img/profile_icons/skype.svg\" (click)=\"openLink('skype')\" class=\"image_links\">\n                        <img src=\"assets/img/profile_icons/whatsapp.svg\" (click)=\"openLink('whatsapp')\" class=\"image_links\">\n\n\n                    </div>\n                </div>\n            </div>\n            <div class=\"col-md-4\">\n\n                <app-skill></app-skill>\n\n                <!-- <lbd-chart [title]=\"'Skillset'\" [subtitle]=\"'Technical Skills'\" [chartClass]=\"'ct-perfect-fourth'\" [chartType]=\"emailChartType\"\n                    [chartData]=\"emailChartData\" [legendItems]=\"emailChartLegendItems\" [withHr]=\"true\" [footerIconClass]=\"'fa fa-clock-o'\"\n                    [footerText]=\"'Last update: July 2018'\">\n                </lbd-chart> -->\n\n\n            </div>\n            <div class=\"col-md-4\">\n                <iframe allow=\"microphone;\" style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" src=\"https://console.dialogflow.com/api-client/demo/embedded/1731069b-64bb-41bd-becc-7390dda8d04b\">\n                </iframe>\n            </div>\n            <!-- <div class=\"col-md-8\">\n                <lbd-chart [title]=\"'Users Behavior'\" [subtitle]=\"'24 Hours performance'\" [chartType]=\"hoursChartType\" [chartData]=\"hoursChartData\"\n                    [chartOptions]=\"hoursChartOptions\" [chartResponsive]=\"hoursChartResponsive\" [legendItems]=\"hoursChartLegendItems\"\n                    [withHr]=\"true\" [footerIconClass]=\"'fa fa-history'\" [footerText]=\"'Updated 3 minutes ago'\">\n                </lbd-chart>\n            </div> -->\n\n        </div>\n\n\n\n        <div class=\"row\">\n\n            <div class=\"col-md-6\">\n\n                <!-- <app-companies></app-companies> -->\n\n                <!-- <lbd-chart [title]=\"'2014 Sales'\" [subtitle]=\"'All products including Taxes'\" [chartType]=\"activityChartType\" [chartData]=\"activityChartData\"\n                    [chartOptions]=\"activityChartOptions\" [chartResponsive]=\"activityChartResponsive\" [legendItems]=\"activityChartLegendItems\"\n                    [withHr]=\"true\" [footerIconClass]=\"'fa fa-check'\" [footerText]=\"'Data information certified'\">\n                </lbd-chart> -->\n\n                <div class=\"card\">\n\n                    <div class=\"header\">\n                        <h4 class=\"title\">Mobile Apps</h4>\n                        <!-- <p class=\"category\">Backend development</p> -->\n                    </div>\n\n                    <div class=\"content\">\n\n                        <div class=\"list-group\">\n                            <a *ngFor=\"let item of mobileApps_arr\" class=\"list-group-item list-group-item-action flex-column align-items-start\">\n                                <div class=\"d-flex w-100 justify-content-between\">\n                                    <h5 class=\"mb-1\">{{item.title}}</h5>\n                                </div>\n                                <p class=\"mb-1\">{{item.desc}}</p>\n                            </a>\n\n                            <!-- <a class=\"list-group-item list-group-item-action flex-column align-items-start\">\n                                <div class=\"d-flex w-100 justify-content-between\">\n                                    <h5 class=\"mb-1\">List group item heading</h5>\n                                </div>\n                                <p class=\"mb-1\">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>\n                            </a>\n                            <a class=\"list-group-item list-group-item-action flex-column align-items-start\">\n                                <div class=\"d-flex w-100 justify-content-between\">\n                                    <h5 class=\"mb-1\">List group item heading</h5>\n                                </div>\n                                <p class=\"mb-1\">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>\n                            </a> -->\n\n                        </div>\n\n\n                        <!-- <div class=\"table-full-width\">\n                            <table class=\"table\">\n                                <tbody>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox1\" type=\"checkbox\">\n                                                <label for=\"checkbox1\">\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Sign contract for \"What are conference organizers afraid of?\"</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox2\" type=\"checkbox\" checked>\n                                                <label for=\"checkbox2\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox3\" type=\"checkbox\" checked>\n                                                <label for=\"checkbox3\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging\n                                            rain swept through metro Detroit\n                                        </td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox4\" type=\"checkbox\">\n                                                <label for=\"checkbox4\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Create 4 Invisible User Experiences you Never Knew About</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox5\" type=\"checkbox\">\n                                                <label for=\"checkbox5\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Read \"Following makes Medium better\"</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox6\" type=\"checkbox\">\n                                                <label for=\"checkbox6\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Unfollow 5 enemies from twitter</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                        <div class=\"footer\">\n                            <hr>\n                            <div class=\"stats\">\n                                <i class=\"fa fa-history\"></i> Updated 3 minutes ago\n                            </div>\n                        </div> -->\n\n                    </div>\n\n                </div>\n\n            </div>\n\n\n\n\n            <div class=\"col-md-6\">\n\n                <div class=\"card\">\n\n                    <div class=\"header\">\n                        <h4 class=\"title\">Machine Learning Projects</h4>\n                        <!-- <p class=\"category\">Backend development</p> -->\n                    </div>\n\n                    <div class=\"content\">\n\n                        <div class=\"list-group\">\n\n                            <a *ngFor=\"let item of machine_learning_projects_arr\" class=\"list-group-item list-group-item-action flex-column align-items-start\">\n                                <div class=\"d-flex w-100 justify-content-between\">\n                                    <h5 class=\"mb-1\">\n                                        <b>{{item.title}}</b>\n                                    </h5>\n                                </div>\n                                <p class=\"mb-1\">{{item.desc}}</p>\n                            </a>\n\n\n\n                            <!-- <a class=\"list-group-item list-group-item-action flex-column align-items-start\">\n                                <div class=\"d-flex w-100 justify-content-between\">\n                                    <h5 class=\"mb-1\">List group item heading</h5>\n                                </div>\n                                <p class=\"mb-1\">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>\n                            </a>\n                            <a class=\"list-group-item list-group-item-action flex-column align-items-start\">\n                                <div class=\"d-flex w-100 justify-content-between\">\n                                    <h5 class=\"mb-1\">List group item heading</h5>\n                                </div>\n                                <p class=\"mb-1\">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>\n                            </a> -->\n\n                        </div>\n\n                        <!-- <div class=\"table-full-width\">\n                            <table class=\"table\">\n                                <tbody>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox1\" type=\"checkbox\">\n                                                <label for=\"checkbox1\">\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Sign contract for \"What are conference organizers afraid of?\"</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox2\" type=\"checkbox\" checked>\n                                                <label for=\"checkbox2\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox3\" type=\"checkbox\" checked>\n                                                <label for=\"checkbox3\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging\n                                            rain swept through metro Detroit\n                                        </td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox4\" type=\"checkbox\">\n                                                <label for=\"checkbox4\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Create 4 Invisible User Experiences you Never Knew About</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox5\" type=\"checkbox\">\n                                                <label for=\"checkbox5\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Read \"Following makes Medium better\"</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td>\n                                            <div class=\"checkbox\">\n                                                <input id=\"checkbox6\" type=\"checkbox\">\n                                                <label for=\"checkbox6\">\n\n                                                </label>\n                                            </div>\n                                        </td>\n                                        <td>Unfollow 5 enemies from twitter</td>\n                                        <td class=\"td-actions text-right\">\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-info btn-simple btn-xs\">\n                                                <i class=\"fa fa-edit\"></i>\n                                            </button>\n                                            <button type=\"button\" rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\">\n                                                <i class=\"fa fa-times\"></i>\n                                            </button>\n                                        </td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                        <div class=\"footer\">\n                            <hr>\n                            <div class=\"stats\">\n                                <i class=\"fa fa-history\"></i> Updated 3 minutes ago\n                            </div>\n                        </div> -->\n\n\n                    </div>\n                </div>\n\n            </div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -304,89 +386,136 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
-var lbd_chart_component_1 = __webpack_require__("./src/app/lbd/lbd-chart/lbd-chart.component.ts");
-var Chartist = __webpack_require__("./node_modules/chartist/dist/chartist.js");
 var HomeComponent = (function () {
     function HomeComponent() {
+        // public emailChartType: ChartType;
+        // public emailChartData: any;
+        // public emailChartLegendItems: LegendItem[];
+        // public hoursChartType: ChartType;
+        // public hoursChartData: any;
+        // public hoursChartOptions: any;
+        // public hoursChartResponsive: any[];
+        // public hoursChartLegendItems: LegendItem[];
+        // public activityChartType: ChartType;
+        // public activityChartData: any;
+        // public activityChartOptions: any;
+        // public activityChartResponsive: any[];
+        // public activityChartLegendItems: LegendItem[];
+        this.mobileApps_arr = [];
+        this.machine_learning_projects_arr = [];
     }
     HomeComponent.prototype.ngOnInit = function () {
-        this.emailChartType = lbd_chart_component_1.ChartType.Pie;
-        this.emailChartData = {
-            labels: ['62%', '32%', '6%'],
-            series: [62, 32, 6]
-        };
-        this.emailChartLegendItems = [
-            { title: 'Open', imageClass: 'fa fa-circle text-info' },
-            { title: 'Bounce', imageClass: 'fa fa-circle text-danger' },
-            { title: 'Unsubscribe', imageClass: 'fa fa-circle text-warning' }
-        ];
-        this.hoursChartType = lbd_chart_component_1.ChartType.Line;
-        this.hoursChartData = {
-            labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
-            series: [
-                [287, 385, 490, 492, 554, 586, 698, 695, 752, 788, 846, 944],
-                [67, 152, 143, 240, 287, 335, 435, 437, 539, 542, 544, 647],
-                [23, 113, 67, 108, 190, 239, 307, 308, 439, 410, 410, 509]
-            ]
-        };
-        this.hoursChartOptions = {
-            low: 0,
-            high: 800,
-            showArea: true,
-            height: '245px',
-            axisX: {
-                showGrid: false,
-            },
-            lineSmooth: Chartist.Interpolation.simple({
-                divisor: 3
-            }),
-            showLine: false,
-            showPoint: false,
-        };
-        this.hoursChartResponsive = [
-            ['screen and (max-width: 640px)', {
-                    axisX: {
-                        labelInterpolationFnc: function (value) {
-                            return value[0];
-                        }
-                    }
-                }]
-        ];
-        this.hoursChartLegendItems = [
-            { title: 'Open', imageClass: 'fa fa-circle text-info' },
-            { title: 'Click', imageClass: 'fa fa-circle text-danger' },
-            { title: 'Click Second Time', imageClass: 'fa fa-circle text-warning' }
-        ];
-        this.activityChartType = lbd_chart_component_1.ChartType.Bar;
-        this.activityChartData = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            series: [
-                [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-                [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-            ]
-        };
-        this.activityChartOptions = {
-            seriesBarDistance: 10,
-            axisX: {
-                showGrid: false
-            },
-            height: '245px'
-        };
-        this.activityChartResponsive = [
-            ['screen and (max-width: 640px)', {
-                    seriesBarDistance: 5,
-                    axisX: {
-                        labelInterpolationFnc: function (value) {
-                            return value[0];
-                        }
-                    }
-                }]
-        ];
-        this.activityChartLegendItems = [
-            { title: 'Tesla Model S', imageClass: 'fa fa-circle text-info' },
-            { title: 'BMW 5 Series', imageClass: 'fa fa-circle text-danger' }
-        ];
+        this.initialiseProjects();
     };
+    HomeComponent.prototype.initialiseProjects = function () {
+        this.mobileApps_arr = [];
+        this.machine_learning_projects_arr = [];
+        var obj = null;
+        //=================== Mobile Apps =========================
+        obj = {};
+        obj.title = "KLIA Ekspres Mobile App";
+        obj.desc = "";
+        this.mobileApps_arr.push(obj);
+        obj = {};
+        obj.title = "iHajj Guide";
+        obj.desc = "";
+        this.mobileApps_arr.push(obj);
+        obj = {};
+        obj.title = "Singapore Airlines";
+        obj.desc = "";
+        this.mobileApps_arr.push(obj);
+        // ================ Machine Learning Apps ========================
+        obj = {};
+        obj.title = "Object Detection using Tensorflow";
+        obj.desc = "Custom object Detection using Tensorflow, OpenCV on MacOS and iOS mobile device.";
+        this.machine_learning_projects_arr.push(obj);
+        obj = {};
+        obj.title = "Intrusion detection on Raspberry Pi";
+        obj.desc = "Automated sms's are sent a pre-configured number on detection persons in unauthorized areas.";
+        this.machine_learning_projects_arr.push(obj);
+        obj = {};
+        obj.title = "Face and Emotion detection";
+        obj.desc = "Face detection and Emotion detection using Python, OpenCV";
+        this.machine_learning_projects_arr.push(obj);
+    };
+    // createCharts() {
+    //   this.emailChartType = ChartType.Pie;
+    //   this.emailChartData = {
+    //     labels: ['62%', '32%', '6%'],
+    //     series: [62, 32, 6]
+    //   };
+    //   this.emailChartLegendItems = [
+    //     { title: 'Open', imageClass: 'fa fa-circle text-info' },
+    //     { title: 'Bounce', imageClass: 'fa fa-circle text-danger' },
+    //     { title: 'Unsubscribe', imageClass: 'fa fa-circle text-warning' }
+    //   ];
+    //   this.hoursChartType = ChartType.Line;
+    //   this.hoursChartData = {
+    //     labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
+    //     series: [
+    //       [287, 385, 490, 492, 554, 586, 698, 695, 752, 788, 846, 944],
+    //       [67, 152, 143, 240, 287, 335, 435, 437, 539, 542, 544, 647],
+    //       [23, 113, 67, 108, 190, 239, 307, 308, 439, 410, 410, 509]
+    //     ]
+    //   };
+    //   this.hoursChartOptions = {
+    //     low: 0,
+    //     high: 800,
+    //     showArea: true,
+    //     height: '245px',
+    //     axisX: {
+    //       showGrid: false,
+    //     },
+    //     lineSmooth: Chartist.Interpolation.simple({
+    //       divisor: 3
+    //     }),
+    //     showLine: false,
+    //     showPoint: false,
+    //   };
+    //   this.hoursChartResponsive = [
+    //     ['screen and (max-width: 640px)', {
+    //       axisX: {
+    //         labelInterpolationFnc: function (value) {
+    //           return value[0];
+    //         }
+    //       }
+    //     }]
+    //   ];
+    //   this.hoursChartLegendItems = [
+    //     { title: 'Open', imageClass: 'fa fa-circle text-info' },
+    //     { title: 'Click', imageClass: 'fa fa-circle text-danger' },
+    //     { title: 'Click Second Time', imageClass: 'fa fa-circle text-warning' }
+    //   ];
+    //   this.activityChartType = ChartType.Bar;
+    //   this.activityChartData = {
+    //     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    //     series: [
+    //       [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
+    //       [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
+    //     ]
+    //   };
+    //   this.activityChartOptions = {
+    //     seriesBarDistance: 10,
+    //     axisX: {
+    //       showGrid: false
+    //     },
+    //     height: '245px'
+    //   };
+    //   this.activityChartResponsive = [
+    //     ['screen and (max-width: 640px)', {
+    //       seriesBarDistance: 5,
+    //       axisX: {
+    //         labelInterpolationFnc: function (value) {
+    //           return value[0];
+    //         }
+    //       }
+    //     }]
+    //   ];
+    //   this.activityChartLegendItems = [
+    //     { title: 'Tesla Model S', imageClass: 'fa fa-circle text-info' },
+    //     { title: 'BMW 5 Series', imageClass: 'fa fa-circle text-danger' }
+    //   ];
+    // }
     HomeComponent.prototype.openLink = function (link) {
         var url = "";
         if (link == 'github') {
@@ -414,7 +543,7 @@ HomeComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], HomeComponent);
 exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/home.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/home.component.js.map
 
 /***/ }),
 
@@ -464,7 +593,7 @@ IconsComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], IconsComponent);
 exports.IconsComponent = IconsComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/icons.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/icons.component.js.map
 
 /***/ }),
 
@@ -574,7 +703,7 @@ LbdChartComponent = LbdChartComponent_1 = __decorate([
 ], LbdChartComponent);
 exports.LbdChartComponent = LbdChartComponent;
 var LbdChartComponent_1;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/lbd-chart.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/lbd-chart.component.js.map
 
 /***/ }),
 
@@ -614,7 +743,7 @@ LbdModule = __decorate([
     })
 ], LbdModule);
 exports.LbdModule = LbdModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/lbd.module.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/lbd.module.js.map
 
 /***/ }),
 
@@ -959,7 +1088,7 @@ MapsComponent = __decorate([
 ], MapsComponent);
 exports.MapsComponent = MapsComponent;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/maps.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/maps.component.js.map
 
 /***/ }),
 
@@ -1026,7 +1155,7 @@ NotificationsComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], NotificationsComponent);
 exports.NotificationsComponent = NotificationsComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/notifications.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/notifications.component.js.map
 
 /***/ }),
 
@@ -1060,7 +1189,7 @@ BoolToYesNoPipe = __decorate([
     })
 ], BoolToYesNoPipe);
 exports.BoolToYesNoPipe = BoolToYesNoPipe;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/bool-to-yes-no.pipe.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/bool-to-yes-no.pipe.js.map
 
 /***/ }),
 
@@ -1096,7 +1225,7 @@ SafePipe = __decorate([
 ], SafePipe);
 exports.SafePipe = SafePipe;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/safe-pipe.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/safe-pipe.js.map
 
 /***/ }),
 
@@ -1121,7 +1250,7 @@ var AbstractCameraService = (function () {
     return AbstractCameraService;
 }());
 exports.AbstractCameraService = AbstractCameraService;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/abstract-camera.service.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/abstract-camera.service.js.map
 
 /***/ }),
 
@@ -1211,7 +1340,7 @@ DesktopCameraService = __decorate([
     core_1.Injectable()
 ], DesktopCameraService);
 exports.DesktopCameraService = DesktopCameraService;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/desktop-camera.service.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/desktop-camera.service.js.map
 
 /***/ }),
 
@@ -1301,7 +1430,7 @@ FaceRecognitionService = __decorate([
 ], FaceRecognitionService);
 exports.FaceRecognitionService = FaceRecognitionService;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/face-recognition.service.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/face-recognition.service.js.map
 
 /***/ }),
 
@@ -1349,7 +1478,7 @@ var MobileCameraService = (function () {
     return MobileCameraService;
 }());
 exports.MobileCameraService = MobileCameraService;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/mobile-camera.service.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/mobile-camera.service.js.map
 
 /***/ }),
 
@@ -1451,14 +1580,14 @@ PlatformInformationProvider = __decorate([
     __metadata("design:paramtypes", [])
 ], PlatformInformationProvider);
 exports.PlatformInformationProvider = PlatformInformationProvider;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/platform-information.provider.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/platform-information.provider.js.map
 
 /***/ }),
 
 /***/ "./src/app/shared/footer/footer.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<footer class=\"footer\">\n    <div class=\"container-fluid\">\n\n        <p class=\"copyright pull-left\">\n            &copy; {{test | date: 'yyyy'}} &nbsp;\n            <a href=\"#\">Biranchi</a>\n            <!-- <a href=\"http://www.creative-tim.com\">Creative Tim</a>, made with love for a better web -->\n        </p>\n\n        <!-- <nav class=\"pull-left\">\n            <ul>\n                <li>\n                    <a href=\"#\">\n                        Home\n                    </a>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        Company\n                    </a>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        Portfolio\n                    </a>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        Blog\n                    </a>\n                </li>\n            </ul>\n        </nav>\n        <p class=\"copyright pull-right\">\n            &copy; {{test | date: 'yyyy'}} <a href=\"http://www.creative-tim.com\">Creative Tim</a>, made with love for a better web\n        </p> -->\n    </div>\n</footer>"
+module.exports = "<footer class=\"footer\">\n    <div class=\"container-fluid\">\n\n        <p class=\"copyright pull-left\">\n            &copy; {{test | date: 'yyyy'}} &nbsp;\n            <a>Biranchi</a>\n            <!-- <a href=\"http://www.creative-tim.com\">Creative Tim</a>, made with love for a better web -->\n        </p>\n\n        <!-- <nav class=\"pull-left\">\n            <ul>\n                <li>\n                    <a href=\"#\">\n                        Home\n                    </a>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        Company\n                    </a>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        Portfolio\n                    </a>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        Blog\n                    </a>\n                </li>\n            </ul>\n        </nav>\n        <p class=\"copyright pull-right\">\n            &copy; {{test | date: 'yyyy'}} <a href=\"http://www.creative-tim.com\">Creative Tim</a>, made with love for a better web\n        </p> -->\n    </div>\n</footer>"
 
 /***/ }),
 
@@ -1488,7 +1617,7 @@ FooterComponent = __decorate([
     })
 ], FooterComponent);
 exports.FooterComponent = FooterComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/footer.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/footer.component.js.map
 
 /***/ }),
 
@@ -1521,14 +1650,14 @@ FooterModule = __decorate([
     })
 ], FooterModule);
 exports.FooterModule = FooterModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/footer.module.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/footer.module.js.map
 
 /***/ }),
 
 /***/ "./src/app/shared/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-header\">\n            <!-- <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" (click)=\"sidebarToggle()\">\n                 <span class=\"sr-only\">Toggle navigation</span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span> \n            </button> -->\n            <!-- <a class=\"navbar-brand\" href=\"#\">{{getTitle()}}</a> -->\n            <a class=\"navbar-brand\" href=\"#\">{{title}}</a>\n        </div>\n        <div class=\"collapse navbar-collapse\">\n            <!-- <ul class=\"nav navbar-nav navbar-left\">\n                <li>\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                        <i class=\"fa fa-dashboard\"></i>\n                        <p class=\"hidden-lg hidden-md\">{{getTitle()}}</p>\n                    </a>\n                </li>\n                <li class=\"dropdown\">\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                        <i class=\"fa fa-globe\"></i>\n                        <b class=\"caret\"></b>\n                        <span class=\"notification hidden-sm hidden-xs\">5</span>\n                        <p class=\"hidden-lg hidden-md\">\n                            5 Notifications\n                            <b class=\"caret\"></b>\n                        </p>\n                    </a>\n                    <ul class=\"dropdown-menu\">\n                        <li><a href=\"#\">Notification 1</a></li>\n                        <li><a href=\"#\">Notification 2</a></li>\n                        <li><a href=\"#\">Notification 3</a></li>\n                        <li><a href=\"#\">Notification 4</a></li>\n                        <li><a href=\"#\">Another notification</a></li>\n                    </ul>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        <i class=\"fa fa-search\"></i>\n                        <p class=\"hidden-lg hidden-md\">Search</p>\n                    </a>\n                </li>\n            </ul>\n\n            <ul class=\"nav navbar-nav navbar-right\">\n                <li>\n                    <a href=\"#\">\n                        <p>Account</p>\n                    </a>\n                </li>\n                <li class=\"dropdown\">\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                        <p>\n                            Dropdown\n                            <b class=\"caret\"></b>\n                        </p>\n                    </a>\n                    <ul class=\"dropdown-menu\">\n                        <li><a href=\"#\">Action</a></li>\n                        <li><a href=\"#\">Another action</a></li>\n                        <li><a href=\"#\">Something</a></li>\n                        <li><a href=\"#\">Another action</a></li>\n                        <li><a href=\"#\">Something</a></li>\n                        <li class=\"divider\"></li>\n                        <li><a href=\"#\">Separated link</a></li>\n                    </ul>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        <p>Log out</p>\n                    </a>\n                </li>\n                <li class=\"separator hidden-lg hidden-md\"></li>\n            </ul> -->\n\n            <!-- <ul class=\"nav navbar-nav navbar-right\">\n                <li>\n                    <a>\n                        <p>Account</p>\n                    </a>\n                </li>\n            </ul> -->\n\n        </div>\n    </div>\n</nav>"
+module.exports = "<nav class=\"navbar navbar-default\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-header\">\n            <!-- <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" (click)=\"sidebarToggle()\">\n                 <span class=\"sr-only\">Toggle navigation</span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span> \n            </button> -->\n            <!-- <a class=\"navbar-brand\" href=\"#\">{{getTitle()}}</a> -->\n\n\n            <a class=\"navbar-brand\" href=\"#\">{{title}}</a>\n        </div>\n        <div class=\"collapse navbar-collapse\">\n            <!-- <ul class=\"nav navbar-nav navbar-left\">\n                <li>\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                        <i class=\"fa fa-dashboard\"></i>\n                        <p class=\"hidden-lg hidden-md\">{{getTitle()}}</p>\n                    </a>\n                </li>\n                <li class=\"dropdown\">\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                        <i class=\"fa fa-globe\"></i>\n                        <b class=\"caret\"></b>\n                        <span class=\"notification hidden-sm hidden-xs\">5</span>\n                        <p class=\"hidden-lg hidden-md\">\n                            5 Notifications\n                            <b class=\"caret\"></b>\n                        </p>\n                    </a>\n                    <ul class=\"dropdown-menu\">\n                        <li><a href=\"#\">Notification 1</a></li>\n                        <li><a href=\"#\">Notification 2</a></li>\n                        <li><a href=\"#\">Notification 3</a></li>\n                        <li><a href=\"#\">Notification 4</a></li>\n                        <li><a href=\"#\">Another notification</a></li>\n                    </ul>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        <i class=\"fa fa-search\"></i>\n                        <p class=\"hidden-lg hidden-md\">Search</p>\n                    </a>\n                </li>\n            </ul>\n\n            <ul class=\"nav navbar-nav navbar-right\">\n                <li>\n                    <a href=\"#\">\n                        <p>Account</p>\n                    </a>\n                </li>\n                <li class=\"dropdown\">\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n                        <p>\n                            Dropdown\n                            <b class=\"caret\"></b>\n                        </p>\n                    </a>\n                    <ul class=\"dropdown-menu\">\n                        <li><a href=\"#\">Action</a></li>\n                        <li><a href=\"#\">Another action</a></li>\n                        <li><a href=\"#\">Something</a></li>\n                        <li><a href=\"#\">Another action</a></li>\n                        <li><a href=\"#\">Something</a></li>\n                        <li class=\"divider\"></li>\n                        <li><a href=\"#\">Separated link</a></li>\n                    </ul>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        <p>Log out</p>\n                    </a>\n                </li>\n                <li class=\"separator hidden-lg hidden-md\"></li>\n            </ul> -->\n\n            <!-- <ul class=\"nav navbar-nav navbar-right\">\n                <li>\n                    <a>\n                        <p>Account</p>\n                    </a>\n                </li>\n            </ul> -->\n\n        </div>\n    </div>\n</nav>"
 
 /***/ }),
 
@@ -1618,7 +1747,7 @@ NavbarComponent = __decorate([
 ], NavbarComponent);
 exports.NavbarComponent = NavbarComponent;
 var _a, _b, _c;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/navbar.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/navbar.component.js.map
 
 /***/ }),
 
@@ -1651,7 +1780,7 @@ NavbarModule = __decorate([
     })
 ], NavbarModule);
 exports.NavbarModule = NavbarModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/navbar.module.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/navbar.module.js.map
 
 /***/ }),
 
@@ -1721,7 +1850,7 @@ SidebarComponent = __decorate([
 ], SidebarComponent);
 exports.SidebarComponent = SidebarComponent;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/sidebar.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/sidebar.component.js.map
 
 /***/ }),
 
@@ -1754,7 +1883,7 @@ SidebarModule = __decorate([
     })
 ], SidebarModule);
 exports.SidebarModule = SidebarModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/sidebar.module.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/sidebar.module.js.map
 
 /***/ }),
 
@@ -1842,7 +1971,7 @@ SkillComponent = __decorate([
 ], SkillComponent);
 exports.SkillComponent = SkillComponent;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/skill.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/skill.component.js.map
 
 /***/ }),
 
@@ -1914,7 +2043,7 @@ TablesComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], TablesComponent);
 exports.TablesComponent = TablesComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/tables.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/tables.component.js.map
 
 /***/ }),
 
@@ -2079,7 +2208,7 @@ TypographyComponent = __decorate([
 ], TypographyComponent);
 exports.TypographyComponent = TypographyComponent;
 var _a, _b;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/typography.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/typography.component.js.map
 
 /***/ }),
 
@@ -2129,7 +2258,7 @@ UpgradeComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], UpgradeComponent);
 exports.UpgradeComponent = UpgradeComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/upgrade.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/upgrade.component.js.map
 
 /***/ }),
 
@@ -2233,7 +2362,7 @@ UserComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], UserComponent);
 exports.UserComponent = UserComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/user.component.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/user.component.js.map
 
 /***/ }),
 
@@ -2253,7 +2382,7 @@ exports.environment = {
     subscriptionKey2: "ac14fe93cb934a99afe151ff59ece054",
     endpoint: 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect'
 };
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/environment.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/environment.js.map
 
 /***/ }),
 
@@ -2271,7 +2400,7 @@ if (environment_1.environment.production) {
     core_1.enableProdMode();
 }
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/Angular2/MyPortfolio CustomTheme/src/main.js.map
+//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/main.js.map
 
 /***/ }),
 
