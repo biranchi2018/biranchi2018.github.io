@@ -431,11 +431,15 @@ var HomeComponent = (function () {
         this.machine_learning_projects_arr.push(obj);
         obj = {};
         obj.title = "Intrusion detection on Raspberry Pi";
-        obj.desc = "Automated sms's are sent a pre-configured number on detection persons in unauthorized areas.";
+        obj.desc = "Automated sms's with link to person's pic are sent to a pre-configured mobile number on detecting persons in unauthorized areas.";
         this.machine_learning_projects_arr.push(obj);
         obj = {};
         obj.title = "Face and Emotion detection";
         obj.desc = "Face detection and Emotion detection using Python, OpenCV";
+        this.machine_learning_projects_arr.push(obj);
+        obj = {};
+        obj.title = "Person detection using Drone";
+        obj.desc = "Person detection using Syma X5HW drone";
         this.machine_learning_projects_arr.push(obj);
     };
     // createCharts() {
