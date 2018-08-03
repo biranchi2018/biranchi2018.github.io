@@ -215,7 +215,8 @@ var routes = [
     { path: 'maps', component: maps_component_1.MapsComponent },
     // { path: 'notifications', component: NotificationsComponent },
     { path: 'upgrade', component: upgrade_component_1.UpgradeComponent },
-    { path: '**', redirectTo: '/dashboard', pathMatch: 'full' }
+    // { path: '**', redirectTo: '/dashboard', pathMatch: 'full' }
+    { path: '**', redirectTo: '/profile', pathMatch: 'full' }
     // { path: '**', redirectTo: '/dashboard' }
     // {path: '**', redirectTo: '/welcome'}
 ];
