@@ -203,7 +203,7 @@ var maps_component_1 = __webpack_require__("./src/app/maps/maps.component.ts");
 var notifications_component_1 = __webpack_require__("./src/app/notifications/notifications.component.ts");
 var upgrade_component_1 = __webpack_require__("./src/app/upgrade/upgrade.component.ts");
 var routes = [
-    { path: 'dashboard', component: home_component_1.HomeComponent },
+    { path: 'profile', component: home_component_1.HomeComponent },
     // { path: 'user', component: UserComponent },
     // { path: 'table',          component: TablesComponent },
     // { path: 'typography',     component: TypographyComponent },
@@ -229,7 +229,8 @@ AppRoutingModule = __decorate([
         imports: [
             common_1.CommonModule,
             platform_browser_1.BrowserModule,
-            router_1.RouterModule.forRoot(routes)
+            router_1.RouterModule.forRoot(routes, { useHash: true })
+            // RouterModule.forRoot(routes)
         ],
         exports: [],
     })
@@ -1819,7 +1820,7 @@ var core_1 = __webpack_require__("./node_modules/@angular/core/@angular/core.es5
 var data_service_1 = __webpack_require__("./src/app/data.service.ts");
 exports.ROUTES = [
     // { path: 'dashboard', title: 'Dashboard',  icon: 'pe-7s-graph', class: '' },
-    { path: 'dashboard', title: 'My Profile', icon: 'pe-7s-user', class: '' },
+    { path: 'profile', title: 'My Profile', icon: 'pe-7s-user', class: '' },
     // { path: 'user', title: 'User Profile', icon: 'pe-7s-user', class: '' },
     { path: 'mobile_apps', title: 'Mobile Apps', icon: 'pe-7s-phone', class: '' },
     { path: 'electronics', title: 'Electronics', icon: 'pe-7s-tools', class: '' },
