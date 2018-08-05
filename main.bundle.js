@@ -2403,6 +2403,10 @@ var UserComponent = (function () {
         cert.image = "assets/img/certifications/Udemy_Intro_machine_learning_begineers.jpg";
         cert.name = "Udemy - Machine Learning";
         this.cert_arr.push(cert);
+        cert = {};
+        cert.image = "assets/img/certifications/Udemy_Chatbots.jpg";
+        cert.name = "Udemy - Making Chatbot & Voice Apps";
+        this.cert_arr.push(cert);
     };
     return UserComponent;
 }());
