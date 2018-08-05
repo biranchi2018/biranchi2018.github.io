@@ -1705,6 +1705,7 @@ var NavbarComponent = (function () {
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
         this.data.currentMessage.subscribe(function (message) {
             _this.title = message;
+            _this.sidebarToggle();
         });
     };
     NavbarComponent.prototype.sidebarOpen = function () {
