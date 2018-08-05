@@ -2228,7 +2228,7 @@ var TypographyComponent = (function () {
         self.isRequestProcessing = true;
         self.faceRecognitionService.scanImage(self.subscriptionKey, self.imageString //base64Image
         ).subscribe(function (result) {
-            // console.log("result : " + JSON.stringify(result));
+            console.log("faceApiResponse response : " + JSON.stringify(result));
             //console.log("typeof : " + typeof (result));
             self.isRequestProcessing = false;
             if (result && (typeof (result) == "object")) {
@@ -2435,8 +2435,8 @@ exports.UserComponent = UserComponent;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = {
     production: false,
-    subscriptionKey1: "e2c1ba693f1f47cd9a7c46ec71b8f8b7",
-    subscriptionKey2: "ac14fe93cb934a99afe151ff59ece054",
+    subscriptionKey1: "a22b4937c5a648189ea4929d6667d94e",
+    subscriptionKey2: "9c5997e6aa3f44e58796adc8d275bfb8",
     endpoint: 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect'
 };
 //# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/environment.js.map
