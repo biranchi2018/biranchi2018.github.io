@@ -2247,6 +2247,8 @@ var TypographyComponent = (function () {
                 ctx.stroke();
                 //======== Draw Rect on the image End ===========
             }
+        }, function (err) {
+            console.log("Error : " + JSON.stringify(err));
         });
     };
     return TypographyComponent;
@@ -2435,9 +2437,9 @@ exports.UserComponent = UserComponent;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = {
     production: false,
-    subscriptionKey1: "a22b4937c5a648189ea4929d6667d94e",
-    subscriptionKey2: "9c5997e6aa3f44e58796adc8d275bfb8",
-    endpoint: 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect'
+    subscriptionKey1: "e55aa00b79bd4f0498ce0277061fcc42",
+    subscriptionKey2: "3c3ea89e26b34c82aec68863080ccb76",
+    endpoint: 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect',
 };
 //# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/environment.js.map
 
