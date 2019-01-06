@@ -51,13 +51,23 @@ var common_1 = __webpack_require__("./node_modules/@angular/common/@angular/comm
 var AppComponent = (function () {
     function AppComponent(location) {
         this.location = location;
+        this.colors_arr = ["azure", "green", "red", "purple"];
+        this.images_arr = ["background-image: url(assets/img/sidebar-2.jpg)",
+            "background-image: url(assets/img/sidebar-4.jpg)",
+            "background-image: url(assets/img/sidebar-5.jpg)"];
+        this.color_index = 2;
+        this.image_index = 2;
+        this.color_name = "";
+        this.image_name = "";
+        this.color_name = this.colors_arr[this.color_index];
+        this.image_name = this.images_arr[this.image_index];
     }
     AppComponent.prototype.ngOnInit = function () {
     };
     AppComponent.prototype.isMap = function (path) {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        titlee = titlee.slice(1);
-        if (path == titlee) {
+        var title = this.location.prepareExternalUrl(this.location.path());
+        title = title.slice(1);
+        if (path == title) {
             return false;
         }
         else {
@@ -76,7 +86,7 @@ AppComponent = __decorate([
 ], AppComponent);
 exports.AppComponent = AppComponent;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/app.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/app.component.js.map
 
 /***/ }),
 
@@ -123,6 +133,7 @@ var face_recognition_service_1 = __webpack_require__("./src/app/services/face-re
 var mobile_camera_service_1 = __webpack_require__("./src/app/services/mobile-camera.service.ts");
 var platform_information_provider_1 = __webpack_require__("./src/app/services/platform-information.provider.ts");
 var companies_component_1 = __webpack_require__("./src/app/companies/companies.component.ts");
+var awards_component_1 = __webpack_require__("./src/app/awards/awards.component.ts");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -144,6 +155,7 @@ AppModule = __decorate([
             safe_pipe_1.SafePipe,
             bool_to_yes_no_pipe_1.BoolToYesNoPipe,
             companies_component_1.CompaniesComponent,
+            awards_component_1.AwardsComponent,
         ],
         imports: [
             platform_browser_1.BrowserModule,
@@ -174,7 +186,7 @@ AppModule = __decorate([
     })
 ], AppModule);
 exports.AppModule = AppModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/app.module.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/app.module.js.map
 
 /***/ }),
 
@@ -202,6 +214,7 @@ var icons_component_1 = __webpack_require__("./src/app/icons/icons.component.ts"
 var maps_component_1 = __webpack_require__("./src/app/maps/maps.component.ts");
 var notifications_component_1 = __webpack_require__("./src/app/notifications/notifications.component.ts");
 var upgrade_component_1 = __webpack_require__("./src/app/upgrade/upgrade.component.ts");
+var awards_component_1 = __webpack_require__("./src/app/awards/awards.component.ts");
 var routes = [
     { path: 'profile', component: home_component_1.HomeComponent },
     // { path: 'user', component: UserComponent },
@@ -211,6 +224,7 @@ var routes = [
     { path: 'electronics', component: notifications_component_1.NotificationsComponent },
     { path: 'machine_learning', component: typography_component_1.TypographyComponent },
     { path: 'certifications', component: user_component_1.UserComponent },
+    { path: 'awards', component: awards_component_1.AwardsComponent },
     { path: 'icons', component: icons_component_1.IconsComponent },
     { path: 'maps', component: maps_component_1.MapsComponent },
     // { path: 'notifications', component: NotificationsComponent },
@@ -237,7 +251,71 @@ AppRoutingModule = __decorate([
     })
 ], AppRoutingModule);
 exports.AppRoutingModule = AppRoutingModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/app.routing.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/app.routing.js.map
+
+/***/ }),
+
+/***/ "./src/app/awards/awards.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/awards/awards.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"main-content\">\n  <div class=\"container-fluid\">\n\n\n      <!-- Awards Start -->\n\n      <div *ngFor=\"let _ of awards_arr; let i=index\">\n\n          <div class=\"row\" *ngIf=\"i%2==0\">\n\n              <div class=\"col-md-6\" *ngFor=\"let j of [0,1]\">\n                  <div class=\"card\" *ngIf=\"i+j < awards_arr.length\">\n\n                      <div class=\"image\" style=\"height:530px; padding:20px\">\n                         <a [href]=\"awards_arr[i+j].image\"> \n                           <img [src]=\"awards_arr[i+j].image\" height=\"510px\" /> \n                         </a>\n                      </div>\n                      <div class=\"content\">\n                          <p class=\"description text-center\">\n                              {{awards_arr[i+j].name}}\n                          </p>\n                      </div>\n\n                  </div>\n              </div>\n\n\n          </div>\n\n      </div>\n\n      <!-- Awards End -->\n\n\n\n      <div class=\"row\">\n\n      </div>\n\n\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/awards/awards.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+var AwardsComponent = (function () {
+    function AwardsComponent() {
+        this.awards_arr = [];
+    }
+    AwardsComponent.prototype.ngOnInit = function () {
+        var award = null;
+        award = {};
+        award.image = "assets/img/awards/XMVE.jpg";
+        award.name = "Xchanging Malaysia Valuable Employee 2017-2018";
+        this.awards_arr.push(award);
+        award = {};
+        award.image = "assets/img/awards/CSC.jpg";
+        award.name = "CSC Certificate of Recognition - (Makkah Development Authority Staff Maangement and Pilgrim Dispatch Project)";
+        this.awards_arr.push(award);
+        award = {};
+        award.image = "assets/img/awards/ERL.jpg";
+        award.name = "Global AirRail Awards (GARA) 2014 - Best Payment Solution";
+        this.awards_arr.push(award);
+    };
+    return AwardsComponent;
+}());
+AwardsComponent = __decorate([
+    core_1.Component({
+        selector: 'app-awards',
+        template: __webpack_require__("./src/app/awards/awards.component.html"),
+        styles: [__webpack_require__("./src/app/awards/awards.component.css")]
+    }),
+    __metadata("design:paramtypes", [])
+], AwardsComponent);
+exports.AwardsComponent = AwardsComponent;
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/awards.component.js.map
 
 /***/ }),
 
@@ -317,7 +395,7 @@ CompaniesComponent = __decorate([
 ], CompaniesComponent);
 exports.CompaniesComponent = CompaniesComponent;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/companies.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/companies.component.js.map
 
 /***/ }),
 
@@ -354,7 +432,7 @@ DataService = __decorate([
     __metadata("design:paramtypes", [])
 ], DataService);
 exports.DataService = DataService;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/data.service.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/data.service.js.map
 
 /***/ }),
 
@@ -553,7 +631,7 @@ HomeComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], HomeComponent);
 exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/home.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/home.component.js.map
 
 /***/ }),
 
@@ -603,7 +681,7 @@ IconsComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], IconsComponent);
 exports.IconsComponent = IconsComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/icons.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/icons.component.js.map
 
 /***/ }),
 
@@ -713,7 +791,7 @@ LbdChartComponent = LbdChartComponent_1 = __decorate([
 ], LbdChartComponent);
 exports.LbdChartComponent = LbdChartComponent;
 var LbdChartComponent_1;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/lbd-chart.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/lbd-chart.component.js.map
 
 /***/ }),
 
@@ -753,7 +831,7 @@ LbdModule = __decorate([
     })
 ], LbdModule);
 exports.LbdModule = LbdModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/lbd.module.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/lbd.module.js.map
 
 /***/ }),
 
@@ -1098,7 +1176,7 @@ MapsComponent = __decorate([
 ], MapsComponent);
 exports.MapsComponent = MapsComponent;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/maps.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/maps.component.js.map
 
 /***/ }),
 
@@ -1165,7 +1243,7 @@ NotificationsComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], NotificationsComponent);
 exports.NotificationsComponent = NotificationsComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/notifications.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/notifications.component.js.map
 
 /***/ }),
 
@@ -1199,7 +1277,7 @@ BoolToYesNoPipe = __decorate([
     })
 ], BoolToYesNoPipe);
 exports.BoolToYesNoPipe = BoolToYesNoPipe;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/bool-to-yes-no.pipe.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/bool-to-yes-no.pipe.js.map
 
 /***/ }),
 
@@ -1235,7 +1313,7 @@ SafePipe = __decorate([
 ], SafePipe);
 exports.SafePipe = SafePipe;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/safe-pipe.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/safe-pipe.js.map
 
 /***/ }),
 
@@ -1260,7 +1338,7 @@ var AbstractCameraService = (function () {
     return AbstractCameraService;
 }());
 exports.AbstractCameraService = AbstractCameraService;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/abstract-camera.service.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/abstract-camera.service.js.map
 
 /***/ }),
 
@@ -1350,7 +1428,7 @@ DesktopCameraService = __decorate([
     core_1.Injectable()
 ], DesktopCameraService);
 exports.DesktopCameraService = DesktopCameraService;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/desktop-camera.service.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/desktop-camera.service.js.map
 
 /***/ }),
 
@@ -1440,7 +1518,7 @@ FaceRecognitionService = __decorate([
 ], FaceRecognitionService);
 exports.FaceRecognitionService = FaceRecognitionService;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/face-recognition.service.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/face-recognition.service.js.map
 
 /***/ }),
 
@@ -1488,7 +1566,7 @@ var MobileCameraService = (function () {
     return MobileCameraService;
 }());
 exports.MobileCameraService = MobileCameraService;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/mobile-camera.service.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/mobile-camera.service.js.map
 
 /***/ }),
 
@@ -1590,7 +1668,7 @@ PlatformInformationProvider = __decorate([
     __metadata("design:paramtypes", [])
 ], PlatformInformationProvider);
 exports.PlatformInformationProvider = PlatformInformationProvider;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/platform-information.provider.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/platform-information.provider.js.map
 
 /***/ }),
 
@@ -1627,7 +1705,7 @@ FooterComponent = __decorate([
     })
 ], FooterComponent);
 exports.FooterComponent = FooterComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/footer.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/footer.component.js.map
 
 /***/ }),
 
@@ -1660,7 +1738,7 @@ FooterModule = __decorate([
     })
 ], FooterModule);
 exports.FooterModule = FooterModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/footer.module.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/footer.module.js.map
 
 /***/ }),
 
@@ -1759,7 +1837,7 @@ NavbarComponent = __decorate([
 ], NavbarComponent);
 exports.NavbarComponent = NavbarComponent;
 var _a, _b, _c;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/navbar.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/navbar.component.js.map
 
 /***/ }),
 
@@ -1792,7 +1870,7 @@ NavbarModule = __decorate([
     })
 ], NavbarModule);
 exports.NavbarModule = NavbarModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/navbar.module.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/navbar.module.js.map
 
 /***/ }),
 
@@ -1828,6 +1906,7 @@ exports.ROUTES = [
     { path: 'electronics', title: 'Electronics', icon: 'pe-7s-tools', class: '' },
     { path: 'machine_learning', title: 'Machine Learning', icon: 'pe-7s-science', class: '' },
     { path: 'certifications', title: 'Certifications', icon: 'pe-7s-notebook', class: '' },
+    { path: 'awards', title: 'Awards', icon: 'pe-7s-notebook', class: '' },
     // { path: 'typography', title: 'Typography', icon: 'pe-7s-news-paper', class: '' },
     // { path: 'icons', title: 'Icons', icon: 'pe-7s-science', class: '' },
     { path: 'maps', title: 'My Location', icon: 'pe-7s-map-marker', class: '' },
@@ -1841,7 +1920,7 @@ var SidebarComponent = (function () {
         this.updateTitle(this.menuItems[0].title);
     };
     SidebarComponent.prototype.updateTitle = function (title) {
-        // console.log("Title clicked : " + title);
+        console.log("updateTitle title : " + title);
         this.data.changeMessage(title);
     };
     SidebarComponent.prototype.isMobileMenu = function () {
@@ -1862,7 +1941,7 @@ SidebarComponent = __decorate([
 ], SidebarComponent);
 exports.SidebarComponent = SidebarComponent;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/sidebar.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/sidebar.component.js.map
 
 /***/ }),
 
@@ -1895,14 +1974,14 @@ SidebarModule = __decorate([
     })
 ], SidebarModule);
 exports.SidebarModule = SidebarModule;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/sidebar.module.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/sidebar.module.js.map
 
 /***/ }),
 
 /***/ "./src/app/skill/skill.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n\n            <div class=\"col-md-12\">\n                <div class=\"card1\">\n\n                    <div id=\"piechart\" #piechartDiv style=\"height: 400px !important;\">\n                    </div>\n\n                </div>\n            </div>\n\n        </div>\n    </div>\n</div> -->\n\n\n\n<div id=\"piechart\" #piechartDiv style=\"width:100%; min-height:430px !important\" (window:resize)=\"onResize($event)\">\n</div>"
+module.exports = "<!-- <div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n\n            <div class=\"col-md-12\">\n                <div class=\"card1\">\n\n                    <div id=\"piechart\" #piechartDiv style=\"height: 400px !important;\">\n                    </div>\n\n                </div>\n            </div>\n\n        </div>\n    </div>\n</div> -->\n\n\n\n<div id=\"piechart\" #piechartDiv style=\"width:100%; min-height:430px !important\" (window:resize)=\"onResize($event)\">\n</div>\n\n<!-- <p id=\"status\">Loading Model...</p>\n<script src=\"assets/js/sketch.js\"></script> -->"
 
 /***/ }),
 
@@ -1989,7 +2068,7 @@ SkillComponent = __decorate([
 ], SkillComponent);
 exports.SkillComponent = SkillComponent;
 var _a;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/skill.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/skill.component.js.map
 
 /***/ }),
 
@@ -2096,7 +2175,7 @@ TablesComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], TablesComponent);
 exports.TablesComponent = TablesComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/tables.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/tables.component.js.map
 
 /***/ }),
 
@@ -2110,7 +2189,7 @@ module.exports = "ul li {\n    float: left;\n    width: 200px;\n    height: auto
 /***/ "./src/app/typography/typography.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n\n\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <button (click)=\"expandFaceDetectionSection()\" class=\"btn btn-primary btn-fill my-2\">\n                    Try Face Detection\n                </button>\n            </div>\n        </div>\n\n\n\n        <div class=\"row\" style=\"padding-top:20px\">\n            <div class=\"col-md-6\">\n                <video id=\"video2\" style=\"display:none\" width=\"90%\" height=\"100%\" autoplay></video>\n            </div>\n\n            <div *ngIf=\"errorMessage\" class=\"alert alert-danger text-center errorMessage_class\">{{errorMessage}}</div>\n\n\n            <div class=\"col-md-6\" id=\"myCanvasDiv\" style=\"display:none;\">\n\n                <!-- <button (click)=\"processImage()\" class=\"btn btn-fill btn-primary\">Take picture</button> -->\n\n                <button id=\"capture\" class=\"btn btn-fill btn-primary pull-right\">Take picture</button>\n                <canvas id=\"myCanvas\"></canvas>\n\n                <ul class=\"list-group\" style=\"margin-top:20px\" *ngIf=\"faceApiResponse\">\n                    <li class=\"list-group-item\">\n                        Gender : {{faceApiResponse[0]?.faceAttributes?.gender}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Smiling : {{faceApiResponse[0]?.faceAttributes?.smile | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Anger : {{faceApiResponse[0]?.faceAttributes?.emotion?.anger | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Age : {{faceApiResponse[0]?.faceAttributes?.age}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Happiness : {{faceApiResponse[0]?.faceAttributes?.emotion?.happiness | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Sadness : {{faceApiResponse[0]?.faceAttributes?.emotion?.sadness | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Glasses : {{faceApiResponse[0]?.faceAttributes?.glasses}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Neutral : {{faceApiResponse[0]?.faceAttributes?.emotion?.neutral | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Fear : {{faceApiResponse[0]?.faceAttributes?.emotion?.fear | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Moustache : {{faceApiResponse[0]?.faceAttributes?.facialHair?.moustache | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Surprise : {{faceApiResponse[0]?.faceAttributes?.emotion?.surprise | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Disgust : {{faceApiResponse[0]?.faceAttributes?.emotion?.disgust | percent}}\n                    </li>\n                </ul>\n\n\n                <div id=\"loader\" *ngIf=\"isRequestProcessing\" style=\"margin-left:35%\">\n                    <img src=\"assets/img/loader-preview.svg\" alt=\"loading\">\n                </div>\n\n\n                <!-- <div class=\"row\">\n                    <div class=\"col-md-12\">\n                        <canvas id=\"myCanvas\"></canvas>\n                    </div>\n                </div> -->\n\n\n                <!-- \n                <div class=\"card\" id=\"myCanvasDiv\">\n                    <div class=\"content\">\n\n                        <canvas id=\"myCanvas2\" width=\"100%\" height=\"400px\"></canvas>\n                    </div>\n                </div> -->\n\n                <!-- <video id=\"video2\" #video2 width=\"400\" height=\"450\" controls autoplay></video> -->\n                <!-- <img *ngIf=\"!faceApiResponse\" [src]=\"imageString\" id=\"photo\" alt=\"imageString\" width=\"100%\" height=\"400px\"> -->\n\n\n\n\n            </div>\n\n            <!-- <div class=\"col-md-6\">\n                    <div *ngIf=\"faceApiResponse\">\n\n\n                        <div class=\"card1\" style=\"margin-top:40px\">\n\n\n                            <canvas id=\"myCanvas\" width=\"100%\" height=\"400px\"></canvas>\n\n\n                            <ul class=\"list-group\" style=\"margin-top:40px\">\n                                <li class=\"list-group-item\">\n                                    Gender : {{faceApiResponse[0]?.faceAttributes?.gender}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Smiling : {{faceApiResponse[0]?.faceAttributes?.smile | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Anger : {{faceApiResponse[0]?.faceAttributes?.emotion?.anger | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Age : {{faceApiResponse[0]?.faceAttributes?.age}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Happiness : {{faceApiResponse[0]?.faceAttributes?.emotion?.happiness | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Sadness : {{faceApiResponse[0]?.faceAttributes?.emotion?.sadness | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Glasses : {{faceApiResponse[0]?.faceAttributes?.glasses}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Neutral : {{faceApiResponse[0]?.faceAttributes?.emotion?.neutral | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Fear : {{faceApiResponse[0]?.faceAttributes?.emotion?.fear | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Moustache : {{faceApiResponse[0]?.faceAttributes?.facialHair?.moustache | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Surprise : {{faceApiResponse[0]?.faceAttributes?.emotion?.surprise | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Disgust : {{faceApiResponse[0]?.faceAttributes?.emotion?.disgust | percent}}\n                                </li>\n                            </ul>\n\n\n\n                        </div>\n                    </div>\n                </div>\n                 -->\n            <!-- </div> -->\n\n        </div>\n\n\n        <br/>\n\n\n\n        <hr style=\"border-color: lightgrey\" />\n\n        <div class=\"row\" style=\"padding-top:40px;\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe class=\"youtube_class\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe class=\"youtube_class\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n\n            <!-- <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"header\">\n                        <h4 class=\"title\">Light Bootstrap Table Heading</h4>\n                        <p class=\"category\">Created using Roboto Font Family</p>\n                    </div>\n                    <div class=\"content\">\n\n                        <div class=\"typo-line\">\n                            <h1><p class=\"category\">Header 1</p>Light Bootstrap Table Heading </h1>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Header 2</p>Light Bootstrap Table Heading</h2>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h3><p class=\"category\">Header 3</p>Light Bootstrap Table Heading</h3>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h4><p class=\"category\">Header 4</p>Light Bootstrap Table Heading</h4>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h5><p class=\"category\">Header 5</p>Light Bootstrap Table Heading</h5>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h6><p class=\"category\">Header 6</p>Light Bootstrap Table Heading</h6>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p><span class=\"category\">Paragraph</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Quote</p>\n                            <blockquote>\n                                <p>\n                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.\n                                </p>\n                                <small>\n                                    Steve Jobs, CEO Apple\n                                </small>\n                            </blockquote>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Muted Text</p>\n                            <p class=\"text-muted\">\n                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n\n                            <p class=\"category\">Coloured Text\n                            </p>\n                            <p class=\"text-primary\">\n                                Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-info\">\n                                Text Info - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-success\">\n                                Text Success - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-warning\">\n                                Text Warning - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-danger\">\n                                Text Danger - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Small Tag</p>Header with small subtitle <br><small>\".small\" is a tag for the headers</small> </h2>\n                        </div>\n                    </div>\n                </div>\n            </div> -->\n\n        </div>\n\n\n\n        <div class=\"row\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe class=\"youtube_class\" width=\"100%\" height=\"500px\" [src]=\"faceRecognitionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Face Recognition using Python\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <!-- <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe> -->\n                </div>\n            </div>\n\n        </div>\n\n    </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n\n\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <button (click)=\"expandFaceDetectionSection()\" class=\"btn btn-primary btn-fill my-2\">\n                    Try Face Detection\n                </button>\n            </div>\n        </div>\n\n        <div class=\"row\" style=\"padding-top:20px\">\n            <div class=\"col-md-6\">\n                <video id=\"video2\" style=\"display:none\" width=\"90%\" height=\"100%\" autoplay></video>\n            </div>\n\n            <div *ngIf=\"errorMessage\" class=\"alert alert-danger text-center errorMessage_class\">{{errorMessage}}</div>\n\n\n            <div class=\"col-md-6\" id=\"myCanvasDiv\" style=\"display:none;\">\n\n                <!-- <button (click)=\"processImage()\" class=\"btn btn-fill btn-primary\">Take picture</button> -->\n\n                <button id=\"capture\" class=\"btn btn-fill btn-primary pull-right\">Take picture</button>\n                <canvas id=\"myCanvas\"></canvas>\n\n                <ul class=\"list-group\" style=\"margin-top:20px\" *ngIf=\"faceApiResponse\">\n                    <li class=\"list-group-item\">\n                        Gender : {{faceApiResponse[0]?.faceAttributes?.gender}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Smiling : {{faceApiResponse[0]?.faceAttributes?.smile | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Anger : {{faceApiResponse[0]?.faceAttributes?.emotion?.anger | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Age : {{faceApiResponse[0]?.faceAttributes?.age}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Happiness : {{faceApiResponse[0]?.faceAttributes?.emotion?.happiness | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Sadness : {{faceApiResponse[0]?.faceAttributes?.emotion?.sadness | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Glasses : {{faceApiResponse[0]?.faceAttributes?.glasses}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Neutral : {{faceApiResponse[0]?.faceAttributes?.emotion?.neutral | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Fear : {{faceApiResponse[0]?.faceAttributes?.emotion?.fear | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Moustache : {{faceApiResponse[0]?.faceAttributes?.facialHair?.moustache | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Surprise : {{faceApiResponse[0]?.faceAttributes?.emotion?.surprise | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Disgust : {{faceApiResponse[0]?.faceAttributes?.emotion?.disgust | percent}}\n                    </li>\n                </ul>\n\n\n                <div id=\"loader\" *ngIf=\"isRequestProcessing\" style=\"margin-left:35%\">\n                    <img src=\"assets/img/loader-preview.svg\" alt=\"loading\">\n                </div>\n\n\n                <!-- <div class=\"row\">\n                    <div class=\"col-md-12\">\n                        <canvas id=\"myCanvas\"></canvas>\n                    </div>\n                </div> -->\n\n\n                <!-- \n                <div class=\"card\" id=\"myCanvasDiv\">\n                    <div class=\"content\">\n\n                        <canvas id=\"myCanvas2\" width=\"100%\" height=\"400px\"></canvas>\n                    </div>\n                </div> -->\n\n                <!-- <video id=\"video2\" #video2 width=\"400\" height=\"450\" controls autoplay></video> -->\n                <!-- <img *ngIf=\"!faceApiResponse\" [src]=\"imageString\" id=\"photo\" alt=\"imageString\" width=\"100%\" height=\"400px\"> -->\n\n\n\n\n            </div>\n\n            <!-- <div class=\"col-md-6\">\n                    <div *ngIf=\"faceApiResponse\">\n\n\n                        <div class=\"card1\" style=\"margin-top:40px\">\n\n\n                            <canvas id=\"myCanvas\" width=\"100%\" height=\"400px\"></canvas>\n\n\n                            <ul class=\"list-group\" style=\"margin-top:40px\">\n                                <li class=\"list-group-item\">\n                                    Gender : {{faceApiResponse[0]?.faceAttributes?.gender}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Smiling : {{faceApiResponse[0]?.faceAttributes?.smile | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Anger : {{faceApiResponse[0]?.faceAttributes?.emotion?.anger | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Age : {{faceApiResponse[0]?.faceAttributes?.age}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Happiness : {{faceApiResponse[0]?.faceAttributes?.emotion?.happiness | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Sadness : {{faceApiResponse[0]?.faceAttributes?.emotion?.sadness | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Glasses : {{faceApiResponse[0]?.faceAttributes?.glasses}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Neutral : {{faceApiResponse[0]?.faceAttributes?.emotion?.neutral | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Fear : {{faceApiResponse[0]?.faceAttributes?.emotion?.fear | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Moustache : {{faceApiResponse[0]?.faceAttributes?.facialHair?.moustache | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Surprise : {{faceApiResponse[0]?.faceAttributes?.emotion?.surprise | percent}}\n                                </li>\n                                <li class=\"list-group-item\">\n                                    Disgust : {{faceApiResponse[0]?.faceAttributes?.emotion?.disgust | percent}}\n                                </li>\n                            </ul>\n\n\n\n                        </div>\n                    </div>\n                </div>\n                 -->\n            <!-- </div> -->\n\n        </div>\n\n        <br/>\n\n\n        <!--<div class=\"row\">\n            <div class=\"col-md-12\">\n                <button (click)=\"expandObjectDetectionSection()\" class=\"btn btn-primary btn-fill my-2\">\n                    Object Detection\n                </button>\n            </div>\n        </div>-->\n\n        <div class=\"row\" style=\"padding-top:20px\">\n\n            <!--<div class=\"col-md-6\">\n                <video id=\"video3\" style=\"display:none\" width=\"90%\" height=\"100%\" autoplay></video>\n            </div>-->\n\n            <!-- \n            <div class=\"col-md-6\" id=\"myCanvasDiv2\" style=\"display:none;\">\n\n\n                <button id=\"capture\" class=\"btn btn-fill btn-primary pull-right\">Take picture</button>\n                <canvas id=\"myCanvas\"></canvas>\n\n                <ul class=\"list-group\" style=\"margin-top:20px\" *ngIf=\"faceApiResponse\">\n                    <li class=\"list-group-item\">\n                        Gender : {{faceApiResponse[0]?.faceAttributes?.gender}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Smiling : {{faceApiResponse[0]?.faceAttributes?.smile | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Anger : {{faceApiResponse[0]?.faceAttributes?.emotion?.anger | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Age : {{faceApiResponse[0]?.faceAttributes?.age}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Happiness : {{faceApiResponse[0]?.faceAttributes?.emotion?.happiness | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Sadness : {{faceApiResponse[0]?.faceAttributes?.emotion?.sadness | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Glasses : {{faceApiResponse[0]?.faceAttributes?.glasses}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Neutral : {{faceApiResponse[0]?.faceAttributes?.emotion?.neutral | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Fear : {{faceApiResponse[0]?.faceAttributes?.emotion?.fear | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Moustache : {{faceApiResponse[0]?.faceAttributes?.facialHair?.moustache | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Surprise : {{faceApiResponse[0]?.faceAttributes?.emotion?.surprise | percent}}\n                    </li>\n                    <li class=\"list-group-item\">\n                        Disgust : {{faceApiResponse[0]?.faceAttributes?.emotion?.disgust | percent}}\n                    </li>\n                </ul>\n\n\n                <div id=\"loader\" *ngIf=\"isRequestProcessing\" style=\"margin-left:35%\">\n                    <img src=\"assets/img/loader-preview.svg\" alt=\"loading\">\n                </div>\n\n\n            </div> -->\n\n        </div>\n\n        <br/>\n\n\n        <hr style=\"border-color: lightgrey\" />\n\n        <div class=\"row\" style=\"padding-top:40px;\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe class=\"youtube_class\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe class=\"youtube_class\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Object Detection using Tensorflow\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n\n            <!-- <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"header\">\n                        <h4 class=\"title\">Light Bootstrap Table Heading</h4>\n                        <p class=\"category\">Created using Roboto Font Family</p>\n                    </div>\n                    <div class=\"content\">\n\n                        <div class=\"typo-line\">\n                            <h1><p class=\"category\">Header 1</p>Light Bootstrap Table Heading </h1>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Header 2</p>Light Bootstrap Table Heading</h2>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h3><p class=\"category\">Header 3</p>Light Bootstrap Table Heading</h3>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h4><p class=\"category\">Header 4</p>Light Bootstrap Table Heading</h4>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h5><p class=\"category\">Header 5</p>Light Bootstrap Table Heading</h5>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h6><p class=\"category\">Header 6</p>Light Bootstrap Table Heading</h6>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p><span class=\"category\">Paragraph</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Quote</p>\n                            <blockquote>\n                                <p>\n                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.\n                                </p>\n                                <small>\n                                    Steve Jobs, CEO Apple\n                                </small>\n                            </blockquote>\n                        </div>\n\n                        <div class=\"typo-line\">\n                            <p class=\"category\">Muted Text</p>\n                            <p class=\"text-muted\">\n                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n\n                            <p class=\"category\">Coloured Text\n                            </p>\n                            <p class=\"text-primary\">\n                                Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-info\">\n                                Text Info - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-success\">\n                                Text Success - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-warning\">\n                                Text Warning - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                            <p class=\"text-danger\">\n                                Text Danger - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.\n                            </p>\n                        </div>\n                        <div class=\"typo-line\">\n                            <h2><p class=\"category\">Small Tag</p>Header with small subtitle <br><small>\".small\" is a tag for the headers</small> </h2>\n                        </div>\n                    </div>\n                </div>\n            </div> -->\n\n        </div>\n\n\n\n        <div class=\"row\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <iframe class=\"youtube_class\" width=\"100%\" height=\"500px\" [src]=\"faceRecognitionURL1 | safe\">\n                    </iframe>\n                    <div class=\"content\">\n                        <p class=\"description text-center\">\n                            Face Recognition using Python\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n                    <!-- <iframe style=\"border:1px solid lightgray\" width=\"100%\" height=\"500px\" [src]=\"objDetectionURL2 | safe\">\n                    </iframe> -->\n                </div>\n            </div>\n\n        </div>\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -2263,7 +2342,7 @@ TypographyComponent = __decorate([
 ], TypographyComponent);
 exports.TypographyComponent = TypographyComponent;
 var _a, _b;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/typography.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/typography.component.js.map
 
 /***/ }),
 
@@ -2313,7 +2392,7 @@ UpgradeComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], UpgradeComponent);
 exports.UpgradeComponent = UpgradeComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/upgrade.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/upgrade.component.js.map
 
 /***/ }),
 
@@ -2327,7 +2406,7 @@ module.exports = ""
 /***/ "./src/app/user/user.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n\n\n        <!-- Certification 1 -->\n\n        <div *ngFor=\"let cert of cert_arr; let i=index\">\n\n            <div class=\"row\" *ngIf=\"i%2==0\">\n\n                <div class=\"col-md-6\" *ngFor=\"let j of [0,1]\">\n                    <div class=\"card\" *ngIf=\"i+j < cert_arr.length\">\n\n                        <div class=\"image\" style=\"height:530px; padding:20px\">\n                            <img [src]=\"cert_arr[i+j].image\" height=\"510px\" />\n                        </div>\n                        <div class=\"content\">\n                            <p class=\"description text-center\">\n                                {{cert_arr[i+j].name}}\n                                <!-- \"Lamborghini Mercy\n                                 <br> Your chick she so thirsty\n                                <br> I'm in that two seat Lambo\" -->\n                            </p>\n                        </div>\n\n                    </div>\n                </div>\n\n\n            </div>\n\n        </div>\n\n\n\n        <!-- \n        <div class=\"row\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n\n                    <div class=\"image\">\n                        <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\" />\n                    </div>\n                    <div class=\"content\">\n                        <p class=\"description text-center\"> \"Lamborghini Mercy\n                            <br> Your chick she so thirsty\n                            <br> I'm in that two seat Lambo\"\n                        </p>\n                    </div>\n\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n\n                    <div class=\"image\">\n                        <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\" />\n                    </div>\n                    <div class=\"content\">\n\n                        <p class=\"description text-center\"> \"Lamborghini Mercy\n                            <br> Your chick she so thirsty\n                            <br> I'm in that two seat Lambo\"\n                        </p>\n                    </div>\n\n                </div>\n            </div>\n        </div> -->\n\n        <!-- Certification 2 -->\n\n\n\n        <div class=\"row\">\n            <!-- \n            <div class=\"col-md-6\">\n                <div class=\"card\">\n\n                    <div class=\"image\">\n                        <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\" />\n                    </div>\n                    <div class=\"content\">\n                        <p class=\"description text-center\"> \"Lamborghini Mercy\n                            <br> Your chick she so thirsty\n                            <br> I'm in that two seat Lambo\"\n                        </p>\n                    </div>\n\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n\n                    <div class=\"image\">\n                        <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\" />\n                    </div>\n                    <div class=\"content\">\n\n                        <p class=\"description text-center\"> \"Lamborghini Mercy\n                            <br> Your chick she so thirsty\n                            <br> I'm in that two seat Lambo\"\n                        </p>\n                    </div>\n\n                </div>\n            </div> -->\n\n            <!-- <div class=\"col-md-8\">\n                <div class=\"card\">\n                    <div class=\"header\">\n                        <h4 class=\"title\">Edit Profile</h4>\n                    </div>\n                    <div class=\"content\">\n                        <form>\n                            <div class=\"row\">\n                                <div class=\"col-md-5\">\n                                    <div class=\"form-group\">\n                                        <label>Company (disabled)</label>\n                                        <input type=\"text\" class=\"form-control\" disabled placeholder=\"Company\" value=\"Creative Code Inc.\">\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"form-group\">\n                                        <label>Username</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"Username\" value=\"michael23\">\n                                    </div>\n                                </div>\n                                <div class=\"col-md-4\">\n                                    <div class=\"form-group\">\n                                        <label for=\"exampleInputEmail1\">Email address</label>\n                                        <input type=\"email\" class=\"form-control\" placeholder=\"Email\">\n                                    </div>\n                                </div>\n                            </div>\n\n                            <div class=\"row\">\n                                <div class=\"col-md-6\">\n                                    <div class=\"form-group\">\n                                        <label>First Name</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"Company\" value=\"Mike\">\n                                    </div>\n                                </div>\n                                <div class=\"col-md-6\">\n                                    <div class=\"form-group\">\n                                        <label>Last Name</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"Last Name\" value=\"Andrew\">\n                                    </div>\n                                </div>\n                            </div>\n\n                            <div class=\"row\">\n                                <div class=\"col-md-12\">\n                                    <div class=\"form-group\">\n                                        <label>Address</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"Home Address\" value=\"Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09\">\n                                    </div>\n                                </div>\n                            </div>\n\n                            <div class=\"row\">\n                                <div class=\"col-md-4\">\n                                    <div class=\"form-group\">\n                                        <label>City</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"City\" value=\"Mike\">\n                                    </div>\n                                </div>\n                                <div class=\"col-md-4\">\n                                    <div class=\"form-group\">\n                                        <label>Country</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"Country\" value=\"Andrew\">\n                                    </div>\n                                </div>\n                                <div class=\"col-md-4\">\n                                    <div class=\"form-group\">\n                                        <label>Postal Code</label>\n                                        <input type=\"number\" class=\"form-control\" placeholder=\"ZIP Code\">\n                                    </div>\n                                </div>\n                            </div>\n\n                            <div class=\"row\">\n                                <div class=\"col-md-12\">\n                                    <div class=\"form-group\">\n                                        <label>About Me</label>\n                                        <textarea rows=\"5\" class=\"form-control\" placeholder=\"Here can be your description\" value=\"Mike\">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>\n                                    </div>\n                                </div>\n                            </div>\n                            <button type=\"submit\" class=\"btn btn-info btn-fill pull-right\">Update Profile</button>\n                            <div class=\"clearfix\"></div>\n                        </form>\n                    </div>\n                </div>\n            </div>\n            <div class=\"col-md-4\">\n                <div class=\"card card-user\">\n                    <div class=\"image\">\n                        <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\"/>\n                    </div>\n                    <div class=\"content\">\n                        <div class=\"author\">\n                            <a href=\"#\">\n                                <img class=\"avatar border-gray\" src=\"assets/img/faces/face-3.jpg\" alt=\"...\"/>\n\n                                <h4 class=\"title\">Mike Andrew<br />\n                                    <small>michael24</small>\n                                </h4>\n                            </a>\n                        </div>\n                        <p class=\"description text-center\"> \"Lamborghini Mercy <br>\n                            Your chick she so thirsty <br>\n                            I'm in that two seat Lambo\"\n                        </p>\n                    </div>\n                    <hr>\n                    <div class=\"text-center\">\n                        <button href=\"#\" class=\"btn btn-simple\"><i class=\"fa fa-facebook-square\"></i></button>\n                        <button href=\"#\" class=\"btn btn-simple\"><i class=\"fa fa-twitter\"></i></button>\n                        <button href=\"#\" class=\"btn btn-simple\"><i class=\"fa fa-google-plus-square\"></i></button>\n                    </div>\n                </div>\n            </div> -->\n\n\n        </div>\n\n\n    </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n\n\n        <!-- Certification 1 -->\n\n        <div *ngFor=\"let cert of cert_arr; let i=index\">\n\n            <div class=\"row\" *ngIf=\"i%2==0\">\n\n                <div class=\"col-md-6\" *ngFor=\"let j of [0,1]\">\n                    <div class=\"card\" *ngIf=\"i+j < cert_arr.length\">\n\n                        <div class=\"image\" style=\"height:530px; padding:20px\">\n                            <a [href]=\"cert_arr[i+j].image\"> \n                                <img [src]=\"cert_arr[i+j].image\" height=\"510px\" />\n                            </a>\n                        </div>\n                        <div class=\"content\">\n                            <p class=\"description text-center\">\n                                {{cert_arr[i+j].name}}\n                                <!-- \"Lamborghini Mercy\n                                 <br> Your chick she so thirsty\n                                <br> I'm in that two seat Lambo\" -->\n                            </p>\n                        </div>\n\n                    </div>\n                </div>\n\n\n            </div>\n\n        </div>\n\n\n\n        <!-- \n        <div class=\"row\">\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n\n                    <div class=\"image\">\n                        <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\" />\n                    </div>\n                    <div class=\"content\">\n                        <p class=\"description text-center\"> \"Lamborghini Mercy\n                            <br> Your chick she so thirsty\n                            <br> I'm in that two seat Lambo\"\n                        </p>\n                    </div>\n\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n\n                    <div class=\"image\">\n                        <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\" />\n                    </div>\n                    <div class=\"content\">\n\n                        <p class=\"description text-center\"> \"Lamborghini Mercy\n                            <br> Your chick she so thirsty\n                            <br> I'm in that two seat Lambo\"\n                        </p>\n                    </div>\n\n                </div>\n            </div>\n        </div> -->\n\n        <!-- Certification 2 -->\n\n\n\n        <div class=\"row\">\n            <!-- \n            <div class=\"col-md-6\">\n                <div class=\"card\">\n\n                    <div class=\"image\">\n                        <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\" />\n                    </div>\n                    <div class=\"content\">\n                        <p class=\"description text-center\"> \"Lamborghini Mercy\n                            <br> Your chick she so thirsty\n                            <br> I'm in that two seat Lambo\"\n                        </p>\n                    </div>\n\n                </div>\n            </div>\n\n            <div class=\"col-md-6\">\n                <div class=\"card\">\n\n                    <div class=\"image\">\n                        <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\" />\n                    </div>\n                    <div class=\"content\">\n\n                        <p class=\"description text-center\"> \"Lamborghini Mercy\n                            <br> Your chick she so thirsty\n                            <br> I'm in that two seat Lambo\"\n                        </p>\n                    </div>\n\n                </div>\n            </div> -->\n\n            <!-- <div class=\"col-md-8\">\n                <div class=\"card\">\n                    <div class=\"header\">\n                        <h4 class=\"title\">Edit Profile</h4>\n                    </div>\n                    <div class=\"content\">\n                        <form>\n                            <div class=\"row\">\n                                <div class=\"col-md-5\">\n                                    <div class=\"form-group\">\n                                        <label>Company (disabled)</label>\n                                        <input type=\"text\" class=\"form-control\" disabled placeholder=\"Company\" value=\"Creative Code Inc.\">\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"form-group\">\n                                        <label>Username</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"Username\" value=\"michael23\">\n                                    </div>\n                                </div>\n                                <div class=\"col-md-4\">\n                                    <div class=\"form-group\">\n                                        <label for=\"exampleInputEmail1\">Email address</label>\n                                        <input type=\"email\" class=\"form-control\" placeholder=\"Email\">\n                                    </div>\n                                </div>\n                            </div>\n\n                            <div class=\"row\">\n                                <div class=\"col-md-6\">\n                                    <div class=\"form-group\">\n                                        <label>First Name</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"Company\" value=\"Mike\">\n                                    </div>\n                                </div>\n                                <div class=\"col-md-6\">\n                                    <div class=\"form-group\">\n                                        <label>Last Name</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"Last Name\" value=\"Andrew\">\n                                    </div>\n                                </div>\n                            </div>\n\n                            <div class=\"row\">\n                                <div class=\"col-md-12\">\n                                    <div class=\"form-group\">\n                                        <label>Address</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"Home Address\" value=\"Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09\">\n                                    </div>\n                                </div>\n                            </div>\n\n                            <div class=\"row\">\n                                <div class=\"col-md-4\">\n                                    <div class=\"form-group\">\n                                        <label>City</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"City\" value=\"Mike\">\n                                    </div>\n                                </div>\n                                <div class=\"col-md-4\">\n                                    <div class=\"form-group\">\n                                        <label>Country</label>\n                                        <input type=\"text\" class=\"form-control\" placeholder=\"Country\" value=\"Andrew\">\n                                    </div>\n                                </div>\n                                <div class=\"col-md-4\">\n                                    <div class=\"form-group\">\n                                        <label>Postal Code</label>\n                                        <input type=\"number\" class=\"form-control\" placeholder=\"ZIP Code\">\n                                    </div>\n                                </div>\n                            </div>\n\n                            <div class=\"row\">\n                                <div class=\"col-md-12\">\n                                    <div class=\"form-group\">\n                                        <label>About Me</label>\n                                        <textarea rows=\"5\" class=\"form-control\" placeholder=\"Here can be your description\" value=\"Mike\">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>\n                                    </div>\n                                </div>\n                            </div>\n                            <button type=\"submit\" class=\"btn btn-info btn-fill pull-right\">Update Profile</button>\n                            <div class=\"clearfix\"></div>\n                        </form>\n                    </div>\n                </div>\n            </div>\n            <div class=\"col-md-4\">\n                <div class=\"card card-user\">\n                    <div class=\"image\">\n                        <img src=\"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400\" alt=\"...\"/>\n                    </div>\n                    <div class=\"content\">\n                        <div class=\"author\">\n                            <a href=\"#\">\n                                <img class=\"avatar border-gray\" src=\"assets/img/faces/face-3.jpg\" alt=\"...\"/>\n\n                                <h4 class=\"title\">Mike Andrew<br />\n                                    <small>michael24</small>\n                                </h4>\n                            </a>\n                        </div>\n                        <p class=\"description text-center\"> \"Lamborghini Mercy <br>\n                            Your chick she so thirsty <br>\n                            I'm in that two seat Lambo\"\n                        </p>\n                    </div>\n                    <hr>\n                    <div class=\"text-center\">\n                        <button href=\"#\" class=\"btn btn-simple\"><i class=\"fa fa-facebook-square\"></i></button>\n                        <button href=\"#\" class=\"btn btn-simple\"><i class=\"fa fa-twitter\"></i></button>\n                        <button href=\"#\" class=\"btn btn-simple\"><i class=\"fa fa-google-plus-square\"></i></button>\n                    </div>\n                </div>\n            </div> -->\n\n\n        </div>\n\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -2425,7 +2504,7 @@ UserComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], UserComponent);
 exports.UserComponent = UserComponent;
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/user.component.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/user.component.js.map
 
 /***/ }),
 
@@ -2445,7 +2524,7 @@ exports.environment = {
     subscriptionKey2: "3c3ea89e26b34c82aec68863080ccb76",
     endpoint: 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect',
 };
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/environment.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/environment.js.map
 
 /***/ }),
 
@@ -2463,7 +2542,7 @@ if (environment_1.environment.production) {
     core_1.enableProdMode();
 }
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
-//# sourceMappingURL=/Users/biranchi/Desktop/Github Protfolio/MyPortfolio CustomTheme/src/main.js.map
+//# sourceMappingURL=/Users/Biranchi/Desktop/MyPortfolio/src/main.js.map
 
 /***/ }),
 
